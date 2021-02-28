@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Perfil\PerfilController;
+use App\Http\Controllers\Rol\RolController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,4 +22,4 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('perfil', PerfilController::class);
+Route::resource('rol', RolController::class);

@@ -7,6 +7,7 @@ use App\Http\Requests\Perfil\StorePerfilRequest;
 use App\Http\Requests\Perfil\UpdatePerfilRequest;
 use App\Models\Perfil;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PerfilController extends Controller
 {
@@ -19,6 +20,7 @@ class PerfilController extends Controller
     {
         $perfiles = Perfil::all();
         return view('perfil.index')->with('perfiles', $perfiles);
+        
     }
 
     /**
@@ -79,8 +81,7 @@ class PerfilController extends Controller
     {
         $perfil->fill($request->all());
         $perfil->save();
-        return back()->with('success', 'Task Created Successfully!');
-    	// return redirect('perfil')->with('success', 'Task Created Successfully!');
+    	return redirect('perfil')->with('success', 'Perfil editado correctamente');
     }
 
     /**

@@ -257,8 +257,8 @@ return [
             'icon'    => 'fas fa-fw fa-tools',
             'submenu' => [
                 [
-                    'text' => 'Perfiles',
-                    'route'  => 'perfil.index',
+                    'text' => 'Roles',
+                    'route'  => 'rol.index',
                     'icon' => 'fas fa-fw fa-users',
                 ],
                 [
