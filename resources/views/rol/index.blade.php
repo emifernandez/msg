@@ -1,8 +1,8 @@
 @extends('adminlte::page')
-@section('title', 'Perfiles')
+@section('title', 'Roles')
 
 @section('content_header')
-    <h1>Perfiles</h1>
+    <h1>Roles</h1>
 @stop
 
 @section('content')
@@ -10,7 +10,7 @@
   </div>
 <div class="panel panel-default">
     <div style="margin: 10px;" class="panel-heading">
-        <a  href="{{route('perfil.create')}}" class="btn btn-primary">Nuevo Perfil</a>
+        <a  href="{{route('rol.create')}}" class="btn btn-primary">Nuevo Rol</a>
     </div>
     <div class="panel-body">
         <div class="table-responsive">
@@ -18,20 +18,20 @@
                 <thead>
                     <tr>
                         <th>Codigo</th>
-                        <th>Perfil</th>
+                        <th>Rol</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($perfiles as $key => $perfil)
+                    @foreach($roles as $key => $rol)
                     <tr>
-                        <td>{{ $perfil->id }}</td>
-                        <td>{{ $perfil->perfil }}</td>
+                        <td>{{ $rol->id }}</td>
+                        <td>{{ $rol->nombre }}</td>
                         <td style="display: block;  margin: auto;">
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$perfil->id}}">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$rol->id}}">
                                 <i class="fas fa-trash-alt" aria-hidden="true"></i>
                             </button>
-                            <a href="{{ route('perfil.edit', $perfil->id) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="{{ route('rol.edit', $rol->id) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
                         </td>
                     </tr>
                     @endforeach
@@ -44,12 +44,12 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header bg-danger">
-          <h4 class="modal-title">Eliminar Perfil</h4>
+          <h4 class="modal-title">Eliminar Rol</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="{{ route('perfil.destroy', 'test')}}" method="post">
+        <form action="{{ route('rol.destroy', 'test')}}" method="post">
             @csrf
             @method('DELETE')
             <div class="modal-body">
