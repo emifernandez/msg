@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Rol;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Rol\StoreRolRequest;
 use App\Http\Requests\Rol\UpdateRolRequest;
+use App\Models\Acceso;
 use App\Models\Rol;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -18,7 +19,7 @@ class RolController extends Controller
      */
     public function index()
     {
-        $roles = Rol::all();
+        $roles = Rol::orderBy('descripcion', 'asc')->get();
         return view('rol.index')->with('roles', $roles);
     }
 
@@ -29,7 +30,9 @@ class RolController extends Controller
      */
     public function create()
     {
-        return view('rol.create');
+        $accesos = Acceso::orderBy('descripcion', 'asc')->get();
+        return view('rol.create')
+            ->with('accesos', $accesos);
     }
 
     /**

@@ -19,6 +19,13 @@ class Rol extends Model
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 
+    public function accesos()
+    {
+        return $this->belongsToMany(Acceso::class)
+            ->as('permisos')
+            ->withTimestamps();
+    }
+
     public function setNombreAttribute($nombre) {
         $this->attributes['nombre'] = mb_strtolower($nombre, "UTF-8");
 
