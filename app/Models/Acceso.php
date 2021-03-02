@@ -16,9 +16,14 @@ class Acceso extends Model
 
     public function roles()
     {
-        return $this->belongsToMany(Rol::class)
+        return $this->belongsToMany(Rol::class, 'permisos')
+            ->withPivot('crear')
+            ->withPivot('eliminar')
+            ->withPivot('modificar')
+            ->withPivot('visualizar')
+            ->withPivot('imprimir')
+            ->withPivot('anular')
             ->as('permisos')
             ->withTimestamps();
     }
-
 }

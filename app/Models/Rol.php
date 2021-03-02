@@ -21,17 +21,24 @@ class Rol extends Model
 
     public function accesos()
     {
-        return $this->belongsToMany(Acceso::class)
+        return $this->belongsToMany(Acceso::class, 'permisos')
+            ->withPivot('crear')
+            ->withPivot('eliminar')
+            ->withPivot('modificar')
+            ->withPivot('visualizar')
+            ->withPivot('imprimir')
+            ->withPivot('anular')
             ->as('permisos')
             ->withTimestamps();
     }
 
-    public function setNombreAttribute($nombre) {
+    public function setNombreAttribute($nombre)
+    {
         $this->attributes['nombre'] = mb_strtolower($nombre, "UTF-8");
-
     }
 
-    public function getNombreAttribute($nombre) {
+    public function getNombreAttribute($nombre)
+    {
         return ucwords($nombre);
     }
 }

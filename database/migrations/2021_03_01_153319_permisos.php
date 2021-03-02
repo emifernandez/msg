@@ -17,6 +17,12 @@ class Permisos extends Migration
             $table->id();
             $table->unsignedBigInteger('rol_id');
             $table->unsignedBigInteger('acceso_id');
+            $table->boolean('crear');
+            $table->boolean('eliminar');
+            $table->boolean('modificar');
+            $table->boolean('visualizar');
+            $table->boolean('imprimir');
+            $table->boolean('anular');
             $table->timestamps();
 
             $table->foreign('rol_id')

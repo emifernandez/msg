@@ -15,20 +15,8 @@ class AccesoSeeder extends Seeder
     public function run()
     {
         $acceso = new Acceso();
-        $acceso->nombre = 'crear-rol';
-        $acceso->descripcion = 'crear rol';
-        $acceso->save();
-        $acceso = new Acceso();
-        $acceso->nombre = 'editar-rol';
-        $acceso->descripcion = 'editar rol';
-        $acceso->save();
-        $acceso = new Acceso();
-        $acceso->nombre = 'eliminar-rol';
-        $acceso->descripcion = 'eliminar rol';
-        $acceso->save();
-        $acceso = new Acceso();
-        $acceso->nombre = 'ver-rol';
-        $acceso->descripcion = 'ver rol';
+        $acceso->nombre = 'rol';
+        $acceso->descripcion = 'Roles';
         $acceso->save();
     }
 }
