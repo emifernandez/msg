@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Rol\RolController;
+use App\Http\Controllers\Usuario\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +20,9 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::resource('rol', RolController::class);
+    Route::resource('rol', RolController::class);
+    Route::resource('usuario', UsuarioController::class);
+});

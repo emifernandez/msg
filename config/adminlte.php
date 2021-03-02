@@ -261,6 +261,11 @@ return [
                     'route'  => 'rol.index',
                     'icon' => 'fas fa-fw fa-users',
                 ],
+                [
+                    'text' => 'Usuarios',
+                    'route'  => 'usuario.index',
+                    'icon' => 'fas fa-fw fa-user',
+                ],
                 // [
                 //     'text'    => 'level_one',
                 //     'url'     => '#',
