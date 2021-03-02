@@ -266,6 +266,11 @@ return [
                     'route'  => 'usuario.index',
                     'icon' => 'fas fa-fw fa-user',
                 ],
+                [
+                    'text' => 'Cambiar Contraseña',
+                    'route'  => 'password.request',
+                    'icon' => 'fas fa-fw fa-unlock-alt',
+                ],
                 // [
                 //     'text'    => 'level_one',
                 //     'url'     => '#',
