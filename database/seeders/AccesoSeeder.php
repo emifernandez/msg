@@ -45,5 +45,21 @@ class AccesoSeeder extends Seeder
         $acceso->target = '_blank';
         $acceso->nivel = 2;
         $acceso->save();
+
+        /*******************************************************/
+        $menu = new Acceso();
+        $menu->nombre = 'datos-basicos';
+        $menu->descripcion = 'Datos Básicos';
+        $menu->icono = 'fas fa-cogs';
+        $menu->nivel = 1;
+        $menu->save();
+        $acceso = new Acceso();
+        $acceso->nombre = 'salon';
+        $acceso->descripcion = 'Salones';
+        $acceso->modulo = $menu->id;
+        $acceso->ruta = 'salon.index';
+        $acceso->icono = 'fas fa-door-open';
+        $acceso->nivel = 2;
+        $acceso->save();
     }
 }
