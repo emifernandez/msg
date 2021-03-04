@@ -14,6 +14,15 @@ class Acceso extends Model
         'descripcion',
     ];
 
+    public function menu()
+    {
+        return $this->hasMany(Acceso::class, 'modulo');
+    }
+    public function submenus()
+    {
+        return $this->belongsTo(Acceso::class);
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Rol::class, 'permisos')

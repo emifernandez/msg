@@ -17,6 +17,11 @@ class Accesos extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('descripcion');
+            $table->string('modulo')->nullable();
+            $table->string('ruta')->nullable();
+            $table->string('icono')->nullable();
+            $table->string('target')->nullable();
+            $table->integer('nivel');
             $table->timestamps();
         });
     }

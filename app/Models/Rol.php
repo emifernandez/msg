@@ -36,9 +36,4 @@ class Rol extends Model
     {
         $this->attributes['nombre'] = mb_strtolower($nombre, "UTF-8");
     }
-
-    public function getNombreAttribute($nombre)
-    {
-        return ucwords($nombre);
-    }
 }

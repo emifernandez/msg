@@ -31,7 +31,9 @@ class RolController extends Controller
      */
     public function create()
     {
-        $accesos = Acceso::orderBy('descripcion', 'asc')->get();
+        $accesos = Acceso::where('nivel', '>', 1)
+            ->orderBy('modulo', 'asc')
+            ->orderBy('descripcion', 'asc')->get();
         return view('rol.create')
             ->with('accesos', $accesos);
     }
@@ -98,7 +100,9 @@ class RolController extends Controller
      */
     public function edit(Rol $rol)
     {
-        $accesos = Acceso::orderBy('descripcion', 'asc')->get();
+        $accesos = Acceso::where('nivel', '>', 1)
+            ->orderBy('modulo', 'asc')
+            ->orderBy('descripcion', 'asc')->get();
         $permisos = $rol->accesos()->get();
         return view('rol.edit')
             ->with('rol', $rol)
