@@ -16,11 +16,11 @@ class RolSeeder extends Seeder
     {
         $rol = new Rol();
         $rol->nombre = 'admin';
-        $rol->descripcion = 'Administrador';
+        $rol->descripcion = 'administrador';
         $rol->save();
         $rol = new Rol();
         $rol->nombre = 'user';
-        $rol->descripcion = 'Usuario';
+        $rol->descripcion = 'usuario';
         $rol->save();
     }
 }

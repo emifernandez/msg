@@ -73,17 +73,55 @@ class User extends Authenticatable
             }
         } else {
             if ($this->hasRole($roles)) {
-                 return true; 
-            }   
+                return true;
+            }
         }
         return false;
     }
-    
+
     public function hasRole($role)
     {
         if ($this->roles()->where('nombre', $role)->first()) {
             return true;
         }
         return false;
+    }
+
+    public function isAdmin()
+    {
+        return $this->roles->first()->nombre == 'admin';
+    }
+
+    public function getPermisos()
+    {
+        return  $this->isAdmin() ? Acceso::where('modulo', '!=', null)->get() : $this->roles->first()->accesos;
+    }
+
+    public function getPermiso($acceso)
+    {
+        return $this->getPermisos()->where('nombre', $acceso)->first();
+    }
+
+    public function getMenu()
+    {
+        $accesos = Acceso::all();
+        $permisos = $this->getPermisos();
+        $menu = collect([]);
+        foreach ($accesos as $acceso) {
+            if ($permisos->contains($acceso)) {
+                $modulo = $accesos->where('id', $acceso->modulo)->first();
+                if ($menu->contains($modulo)) {
+                    $menu->where('id', $modulo->id)->first()->submenus->push($acceso);
+                } else {
+                    $menu->push($modulo);
+                    if (isset($modulo->id)) {
+                        $submenus = collect([]);
+                        $submenus->push($acceso);
+                        $menu->where('id', $modulo->id)->first()->submenus = $submenus;
+                    }
+                }
+            }
+        }
+        return $menu;
     }
 }

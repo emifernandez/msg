@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Rol;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -22,5 +23,6 @@ class UserSeeder extends Seeder
         $user->email_verified_at = now();
         $user->remember_token = Str::random(10);
         $user->save();
+        $user->roles()->attach(Rol::where('nombre', 'admin')->first());
     }
 }

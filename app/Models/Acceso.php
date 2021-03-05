@@ -5,23 +5,27 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rol extends Model
+class Acceso extends Model
 {
     use HasFactory;
-    protected $table = 'roles';
+    protected $table = 'accesos';
     protected $fillable = [
         'nombre',
         'descripcion',
     ];
 
-    public function users()
+    public function menu()
     {
-        return $this->belongsToMany(User::class)->withTimestamps();
+        return $this->hasMany(Acceso::class, 'modulo');
+    }
+    public function submenus()
+    {
+        return $this->belongsTo(Acceso::class);
     }
 
-    public function accesos()
+    public function roles()
     {
-        return $this->belongsToMany(Acceso::class, 'permisos')
+        return $this->belongsToMany(Rol::class, 'permisos')
             ->withPivot('crear')
             ->withPivot('eliminar')
             ->withPivot('modificar')
@@ -30,10 +34,5 @@ class Rol extends Model
             ->withPivot('anular')
             ->as('permisos')
             ->withTimestamps();
-    }
-
-    public function setNombreAttribute($nombre)
-    {
-        $this->attributes['nombre'] = mb_strtolower($nombre, "UTF-8");
     }
 }

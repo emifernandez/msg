@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Rol;
+namespace App\Http\Requests\Salon;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class UpdateRolRequest extends FormRequest
+class StoreSalonRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +24,8 @@ class UpdateRolRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => [
-                'required',
-                Rule::unique('roles')->ignore($this->rol->id),
-            ],
-            'descripcion' => 'required',
+            'nombre' => 'required|unique:salones,nombre',
+            'capacidad' => 'required|numeric|min:0',
         ];
     }
 
@@ -41,9 +37,11 @@ class UpdateRolRequest extends FormRequest
     public function messages()
     {
         return [
-            'nombre.required' => 'Debe introducir un nombre para el rol',
+            'nombre.required' => 'Debe introducir un nombre para el salón',
             'nombre.unique' => 'El nombre ingresado ya existe',
-            'descripcion.required' => 'Debe introducir una descripción para el rol',
+            'capacidad.required' => 'Debe introducir una capacidad para el salón',
+            'capacidad.numeric' => 'Debe introducir un valor numérico para la capacidad',
+            'capacidad.min' => 'La capacidad no puede ser menor a cero',
         ];
     }
 }
