@@ -25,7 +25,6 @@ class UpdateSalonRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required|unique:salones,nombre',
             'nombre' => [
                 'required',
                 Rule::unique('salones')->ignore($this->salon->id),

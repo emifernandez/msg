@@ -66,7 +66,15 @@ class AccesoSeeder extends Seeder
         $acceso->descripcion = 'Servicios';
         $acceso->modulo = $menu->id;
         $acceso->ruta = 'servicio.index';
-        $acceso->icono = 'fas fa-door-open';
+        $acceso->icono = 'fas fa-calendar-check';
+        $acceso->nivel = 2;
+        $acceso->save();
+        $acceso = new Acceso();
+        $acceso->nombre = 'tipo-credito';
+        $acceso->descripcion = 'Tipos de Crédito';
+        $acceso->modulo = $menu->id;
+        $acceso->ruta = 'tipo-credito.index';
+        $acceso->icono = 'fas fa-file-invoice-dollar';
         $acceso->nivel = 2;
         $acceso->save();
     }

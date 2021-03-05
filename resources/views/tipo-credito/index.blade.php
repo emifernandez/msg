@@ -1,8 +1,8 @@
 @extends('adminlte::page')
-@section('title', 'Servicios')
+@section('title', 'Tipos de Crédito')
 
 @section('content_header')
-    <h1>Servicios</h1>
+    <h1>Tipos de Crédito</h1>
 @stop
 
 @section('content')
@@ -10,30 +10,30 @@
   </div>
 <div class="panel panel-default">
     <div style="margin: 10px;" class="panel-heading">
-        <a  href="{{route('servicio.create')}}" class="btn btn-primary">Nuevo Servicio</a>
+        <a  href="{{route('tipo-credito.create')}}" class="btn btn-primary">Nuevo Tipo de Crédito</a>
     </div>
     <div class="panel-body">
         <div class="table-responsive">
             <table width="100%" class="table table-striped table-bordered table-hover" id="tabla">
                 <thead>
                     <tr>
-                        <th>Servicio</th>
-                        <th>Precio</th>
-                        <th>% IVA</th>
+                        <th>Tipo</th>
+                        <th>% Tasa Diaria</th>
+                        <th>% Tasa</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($servicios as $key => $servicio)
+                    @foreach($tipos as $key => $tipo)
                     <tr>
-                        <td>{{ $servicio->descripcion }}</td>
-                        <td>{{ $servicio->precio }}</td>
-                        <td>{{ $servicio->iva }}</td>
+                        <td>{{ $tipo->descripcion }}</td>
+                        <td>{{ $tipo->tasa_diaria }}</td>
+                        <td>{{ $tipo->tasa }}</td>
                         <td style="display: block;  margin: auto;">
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$servicio->id}}">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$tipo->id}}">
                                 <i class="fas fa-trash-alt" aria-hidden="true"></i>
                             </button>
-                            <a href="{{ route('servicio.edit', $servicio->id) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="{{ route('tipo-credito.edit', $tipo->id) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
                         </td>
                     </tr>
                     @endforeach
@@ -46,12 +46,12 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header bg-danger">
-          <h4 class="modal-title">Eliminar Servicio</h4>
+          <h4 class="modal-title">Eliminar Tipo de Crédito</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="{{ route('servicio.destroy', 'test')}}" method="post">
+        <form action="{{ route('tipo-credito.destroy', 'test')}}" method="post">
             @csrf
             @method('DELETE')
             <div class="modal-body">

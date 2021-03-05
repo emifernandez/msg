@@ -25,7 +25,6 @@ class UpdateServicioRequest extends FormRequest
     public function rules()
     {
         return [
-            'descripcion' => 'required|unique:servicios,descripcion',
             'descripcion' => [
                 'required',
                 Rule::unique('servicios')->ignore($this->servicio->id),

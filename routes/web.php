@@ -3,6 +3,7 @@
 use App\Http\Controllers\Rol\RolController;
 use App\Http\Controllers\Salon\SalonController;
 use App\Http\Controllers\Servicio\ServicioController;
+use App\Http\Controllers\TipoCredito\TipoCreditoController;
 use App\Http\Controllers\Usuario\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,5 +29,6 @@ Route::group(['middleware' => ['auth', 'roles']], function () {
     Route::resource('rol', RolController::class);
     Route::resource('salon', SalonController::class);
     Route::resource('servicio', ServicioController::class);
+    Route::resource('tipo-credito', TipoCreditoController::class);
     Route::resource('usuario', UsuarioController::class);
 });
