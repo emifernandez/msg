@@ -19,6 +19,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', new User());
         $usuarios = User::orderBy('name', 'asc')->get();
         return view('usuario.index')->with('usuarios', $usuarios);
     }
@@ -30,6 +31,7 @@ class UsuarioController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', new User());
         $roles = Rol::orderBy('descripcion', 'asc')->get();
         return view('usuario.create')->with('roles', $roles);
     }
@@ -71,6 +73,7 @@ class UsuarioController extends Controller
      */
     public function edit(User $usuario)
     {
+        $this->authorize('update', new User());
         $roles = Rol::orderBy('descripcion', 'asc')->get();
         return view('usuario.edit')
             ->with('usuario', $usuario)
@@ -104,6 +107,7 @@ class UsuarioController extends Controller
      */
     public function destroy(Request $request)
     {
+        $this->authorize('delete', new User());
         $usuario = User::findOrFail($request->id);
         $roles = $usuario->roles()->get();
         foreach ($roles as $rol) {

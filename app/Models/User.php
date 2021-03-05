@@ -97,6 +97,11 @@ class User extends Authenticatable
         return  $this->isAdmin() ? Acceso::where('modulo', '!=', null)->get() : $this->roles->first()->accesos;
     }
 
+    public function getPermiso($acceso)
+    {
+        return $this->getPermisos()->where('nombre', $acceso)->first();
+    }
+
     public function getMenu()
     {
         $accesos = Acceso::all();

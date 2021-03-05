@@ -17,6 +17,7 @@ class SalonController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', new Salon());
         $salones = Salon::orderBy('nombre', 'asc')->get();
         return view('salon.index')->with('salones', $salones);
     }
@@ -28,6 +29,7 @@ class SalonController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', new Salon());
         return view('salon.create');
     }
 
@@ -64,6 +66,7 @@ class SalonController extends Controller
      */
     public function edit(Salon $salon)
     {
+        $this->authorize('update', new Salon());
         return view('salon.edit')->with('salon', $salon);
     }
 
@@ -90,6 +93,7 @@ class SalonController extends Controller
      */
     public function destroy(Request $request)
     {
+        $this->authorize('delete', new Salon());
         $salon = Salon::findOrFail($request->id);
         $salon->delete();
         toast('Salón eliminado correctamente', 'success');

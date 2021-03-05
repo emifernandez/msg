@@ -29,7 +29,7 @@ class UpdateRolRequest extends FormRequest
                 'required',
                 Rule::unique('roles')->ignore($this->rol->id),
             ],
-            'descripcion'=>'required',
+            'descripcion' => 'required',
         ];
     }
 

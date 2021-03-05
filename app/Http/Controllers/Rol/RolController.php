@@ -20,6 +20,7 @@ class RolController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', new Rol());
         $roles = Rol::orderBy('descripcion', 'asc')->get();
         return view('rol.index')->with('roles', $roles);
     }
@@ -31,6 +32,7 @@ class RolController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', new Rol());
         $accesos = Acceso::where('nivel', '>', 1)
             ->orderBy('modulo', 'asc')
             ->orderBy('descripcion', 'asc')->get();
@@ -100,6 +102,7 @@ class RolController extends Controller
      */
     public function edit(Rol $rol)
     {
+        $this->authorize('update', $rol);
         $accesos = Acceso::where('nivel', '>', 1)
             ->orderBy('modulo', 'asc')
             ->orderBy('descripcion', 'asc')->get();
@@ -162,6 +165,7 @@ class RolController extends Controller
      */
     public function destroy(Request $request)
     {
+        $this->authorize('delete', new Rol());
         $rol = Rol::findOrFail($request->id);
         $accesos = $rol->accesos()->get();
         foreach ($accesos as $acceso) {

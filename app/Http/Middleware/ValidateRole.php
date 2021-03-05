@@ -17,9 +17,11 @@ class ValidateRole
      */
     public function handle(Request $request, Closure $next)
     {
-        $ruta = $request->route()->getName();
+        $ruta = $request->route()->uri;
+        $arr = explode("/", $ruta, 2);
+        $root = $arr[0];
         $permisos = auth()->user()->getPermisos();
-        $acceso = $permisos->where('ruta', $ruta)->first();
+        $acceso = $permisos->where('nombre', $root)->first();
         if ((isset($acceso) && isset($acceso->permisos) && $acceso->permisos->visualizar) || $ruta == 'home' || auth()->user()->isAdmin()) {
             return $next($request);
         }
