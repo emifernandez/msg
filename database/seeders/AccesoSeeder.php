@@ -61,5 +61,13 @@ class AccesoSeeder extends Seeder
         $acceso->icono = 'fas fa-door-open';
         $acceso->nivel = 2;
         $acceso->save();
+        $acceso = new Acceso();
+        $acceso->nombre = 'servicio';
+        $acceso->descripcion = 'Servicios';
+        $acceso->modulo = $menu->id;
+        $acceso->ruta = 'servicio.index';
+        $acceso->icono = 'fas fa-door-open';
+        $acceso->nivel = 2;
+        $acceso->save();
     }
 }
