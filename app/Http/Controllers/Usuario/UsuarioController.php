@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Usuario;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Usuario\StoreUsuarioRequest;
+use App\Http\Requests\Usuario\UpdateUsuarioRequest;
 use App\Models\Rol;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,9 +20,12 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $this->authorize('view', new User());
+        $aux = new User();
+        $this->authorize('view', $aux);
         $usuarios = User::orderBy('name', 'asc')->get();
-        return view('usuario.index')->with('usuarios', $usuarios);
+        return view('usuario.index')
+            ->with('usuarios', $usuarios)
+            ->with('aux', $aux);
     }
 
     /**

@@ -19,6 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'lastname',
         'email',
         'password',
     ];
@@ -65,15 +66,17 @@ class User extends Authenticatable
     }
     public function hasAnyRole($roles)
     {
-        if (is_array($roles)) {
-            foreach ($roles as $role) {
-                if ($this->hasRole($role)) {
+        if (isset($roles)) {
+            if ($roles->count() > 1) {
+                foreach ($roles as $role) {
+                    if ($this->hasRole($role)) {
+                        return true;
+                    }
+                }
+            } else {
+                if ($this->hasRole($roles)) {
                     return true;
                 }
-            }
-        } else {
-            if ($this->hasRole($roles)) {
-                return true;
             }
         }
         return false;
@@ -81,7 +84,7 @@ class User extends Authenticatable
 
     public function hasRole($role)
     {
-        if ($this->roles()->where('nombre', $role)->first()) {
+        if ($this->roles()->where('roles.id', $role->id)->first()) {
             return true;
         }
         return false;

@@ -20,9 +20,12 @@ class RolController extends Controller
      */
     public function index()
     {
-        $this->authorize('view', new Rol());
+        $aux = new Rol();
+        $this->authorize('view', $aux);
         $roles = Rol::orderBy('descripcion', 'asc')->get();
-        return view('rol.index')->with('roles', $roles);
+        return view('rol.index')
+            ->with('roles', $roles)
+            ->with('aux', $aux);
     }
 
     /**
@@ -79,7 +82,7 @@ class RolController extends Controller
             return redirect()->route('rol.index');
         } else {
             toast('Debe ingresar al menos un acceso para grabar el permiso', 'warning');
-            return redirect()->route('rol.index');
+            return redirect()->back();
         }
     }
 
@@ -153,7 +156,7 @@ class RolController extends Controller
             return redirect()->route('rol.index');
         } else {
             toast('Debe ingresar al menos un acceso para grabar el permiso', 'warning');
-            return redirect()->route('rol.index');
+            return redirect()->back();
         }
     }
 

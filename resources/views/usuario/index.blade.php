@@ -10,7 +10,9 @@
   </div>
 <div class="panel panel-default">
     <div style="margin: 10px;" class="panel-heading">
+        @can('create', $aux)
         <a  href="{{route('usuario.create')}}" class="btn btn-primary">Nuevo Usuario</a>
+        @endcan
     </div>
     <div class="panel-body">
         <div class="table-responsive">
@@ -18,6 +20,7 @@
                 <thead>
                     <tr>
                         <th>Nombre</th>
+                        <th>Apellido</th>
                         <th>Usuario</th>
                         <th>Rol</th>
                         <th>Acciones</th>
@@ -27,13 +30,18 @@
                     @foreach($usuarios as $key => $usuario)
                     <tr>
                         <td>{{ $usuario->name }}</td>
+                        <td>{{ $usuario->lastname }}</td>
                         <td>{{ $usuario->email }}</td>
-                        <td>{{ $usuario->roles()->first()->descripcion }}</td>
+                        <td>{{ $usuario->roles()->first()->nombre }}</td>
                         <td style="display: block;  margin: auto;">
+                            @can('delete', $usuario)
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$usuario->id}}">
                                 <i class="fas fa-trash-alt" aria-hidden="true"></i>
                             </button>
+                            @endcan
+                            @can('update', $usuario)
                             <a href="{{ route('usuario.edit', $usuario->id) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
+                            @endcan
                         </td>
                     </tr>
                     @endforeach

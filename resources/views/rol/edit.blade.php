@@ -30,12 +30,12 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="descripcion">Descripción</label>
-                                        <input class="form-control"
-                                            type="text"
+                                        <textarea class="form-control"
+                                            rows="3"
                                             name="descripcion"
                                             id="descripcion"
                                             value="{{ old('descripcion', $rol->descripcion) }}"
-                                            placeholder="Introduzca descripción del rol">
+                                            placeholder="Introduzca descripción para el rol">{{ old('descripcion', $rol->descripcion) }}</textarea>
                                             @foreach ($errors->get('descripcion') as $error)
                                                 <span class="text text-danger">{{ $error }}</span>
                                             @endforeach

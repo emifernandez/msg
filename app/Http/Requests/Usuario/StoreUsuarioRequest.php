@@ -26,6 +26,7 @@ class StoreUsuarioRequest extends FormRequest
         return [
             'email' => 'required|email|unique:users,email',
             'name' => 'required',
+            'lastname' => 'required',
             'password' => 'required|confirmed',
             'rol' => 'required',
         ];
@@ -42,7 +43,8 @@ class StoreUsuarioRequest extends FormRequest
             'email.required' => 'Debe introducir el email para el usuario',
             'email.email' => 'Debe introducir un email válido para el usuario',
             'email.unique' => 'El email ingresado ya existe',
-            'name.required' => 'Debe introducir el nombre completo para el usuario',
+            'name.required' => 'Debe introducir el nombre para el usuario',
+            'lastname.required' => 'Debe introducir el apellido para el usuario',
             'password.required' => 'Debe introducir una contraseña para el usuario',
             'password.confirmed' => 'La confirmación de contraseña no coincide',
             'rol.required' => 'Debe introducir un rol para el usuario',

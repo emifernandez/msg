@@ -17,14 +17,26 @@
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="name">Nombre Completo</label>
+                                        <label for="name">Nombre</label>
                                         <input class="form-control"
                                             type="text"
                                             name="name"
                                             id="name"
                                             value="{{ old('name', $usuario->name) }}"
-                                            placeholder="Introduzca nombre y apellido del usuario">
+                                            placeholder="Introduzca nombre del usuario">
                                             @foreach ($errors->get('name') as $error)
+                                                <span class="text text-danger">{{ $error }}</span>
+                                            @endforeach
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastname">Apellido</label>
+                                        <input class="form-control"
+                                            type="text"
+                                            name="lastname"
+                                            id="lastname"
+                                            value="{{ old('lastname', $usuario->lastname) }}"
+                                            placeholder="Introduzca apellido del usuario">
+                                            @foreach ($errors->get('lastname') as $error)
                                                 <span class="text text-danger">{{ $error }}</span>
                                             @endforeach
                                     </div>
@@ -47,7 +59,7 @@
                                             @foreach($roles as $key => $rol)
                                                 <option value="{{ $rol->id }}"
                                                     @if($rol->id == old('rol', $usuario->roles()->first()->id)) selected @endif
-                                                    >{{ $rol->descripcion }}</option>
+                                                    >{{ $rol->nombre }}</option>
                                             @endforeach
                                         </select>
                                         @foreach ($errors->get('rol') as $error)

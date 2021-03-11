@@ -17,9 +17,12 @@ class ServicioController extends Controller
      */
     public function index()
     {
-        $this->authorize('view', new Servicio());
+        $aux = new Servicio();
+        $this->authorize('view', $aux);
         $servicios = Servicio::orderBy('descripcion', 'asc')->get();
-        return view('servicio.index')->with('servicios', $servicios);
+        return view('servicio.index')
+            ->with('servicios', $servicios)
+            ->with('aux', $aux);
     }
 
     /**
@@ -29,7 +32,8 @@ class ServicioController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', new Servicio());
+        $servicio = new Servicio();
+        $this->authorize('create', $servicio);
         return view('servicio.create');
     }
 

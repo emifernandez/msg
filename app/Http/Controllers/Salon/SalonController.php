@@ -17,9 +17,12 @@ class SalonController extends Controller
      */
     public function index()
     {
-        $this->authorize('view', new Salon());
+        $aux = new Salon();
+        $this->authorize('view', $aux);
         $salones = Salon::orderBy('nombre', 'asc')->get();
-        return view('salon.index')->with('salones', $salones);
+        return view('salon.index')
+            ->with('salones', $salones)
+            ->with('aux', $aux);
     }
 
     /**

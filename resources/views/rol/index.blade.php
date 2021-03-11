@@ -10,28 +10,34 @@
   </div>
 <div class="panel panel-default">
     <div style="margin: 10px;" class="panel-heading">
+        @can('create', $aux)
         <a  href="{{route('rol.create')}}" class="btn btn-primary">Nuevo Rol</a>
+        @endcan
     </div>
     <div class="panel-body">
         <div class="table-responsive">
             <table width="100%" class="table table-striped table-bordered table-hover" id="tabla">
                 <thead>
                     <tr>
-                        <th>Codigo</th>
                         <th>Rol</th>
+                        <th>Descripción</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($roles as $key => $rol)
                     <tr>
-                        <td>{{ $rol->id }}</td>
                         <td>{{ $rol->nombre }}</td>
+                        <td>{{ $rol->descripcion }}</td>
                         <td style="display: block;  margin: auto;">
+                            @can('delete', $rol)
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$rol->id}}">
                                 <i class="fas fa-trash-alt" aria-hidden="true"></i>
                             </button>
+                            @endcan
+                            @can('update', $rol)
                             <a href="{{ route('rol.edit', $rol->id) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
+                            @endcan
                         </td>
                     </tr>
                     @endforeach

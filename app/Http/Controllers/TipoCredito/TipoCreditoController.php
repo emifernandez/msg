@@ -17,9 +17,12 @@ class TipoCreditoController extends Controller
      */
     public function index()
     {
-        $this->authorize('view', new TipoCredito());
+        $aux = new TipoCredito();
+        $this->authorize('view', $aux);
         $tipos = TipoCredito::orderBy('descripcion', 'asc')->get();
-        return view('tipo-credito.index')->with('tipos', $tipos);
+        return view('tipo-credito.index')
+            ->with('tipos', $tipos)
+            ->with('aux', $aux);
     }
 
     /**

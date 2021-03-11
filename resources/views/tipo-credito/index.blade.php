@@ -10,7 +10,9 @@
   </div>
 <div class="panel panel-default">
     <div style="margin: 10px;" class="panel-heading">
+        @can('create', $aux)
         <a  href="{{route('tipo-credito.create')}}" class="btn btn-primary">Nuevo Tipo de Crédito</a>
+        @endcan
     </div>
     <div class="panel-body">
         <div class="table-responsive">
@@ -30,10 +32,14 @@
                         <td>{{ $tipo->tasa_diaria }}</td>
                         <td>{{ $tipo->tasa }}</td>
                         <td style="display: block;  margin: auto;">
+                            @can('delete', $tipo)
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$tipo->id}}">
                                 <i class="fas fa-trash-alt" aria-hidden="true"></i>
                             </button>
+                            @endcan
+                            @can('update', $tipo)
                             <a href="{{ route('tipo-credito.edit', $tipo->id) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
+                            @endcan
                         </td>
                     </tr>
                     @endforeach

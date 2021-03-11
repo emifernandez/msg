@@ -10,7 +10,9 @@
   </div>
 <div class="panel panel-default">
     <div style="margin: 10px;" class="panel-heading">
+        @can('create', $aux)
         <a  href="{{route('salon.create')}}" class="btn btn-primary">Nuevo Salón</a>
+        @endcan
     </div>
     <div class="panel-body">
         <div class="table-responsive">
@@ -28,10 +30,14 @@
                         <td>{{ $salon->nombre }}</td>
                         <td>{{ $salon->capacidad }}</td>
                         <td style="display: block;  margin: auto;">
+                            @can('delete', $salon)
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$salon->id}}">
                                 <i class="fas fa-trash-alt" aria-hidden="true"></i>
                             </button>
+                            @endcan
+                            @can('update', $salon)
                             <a href="{{ route('salon.edit', $salon->id) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
+                            @endcan
                         </td>
                     </tr>
                     @endforeach
