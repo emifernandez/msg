@@ -77,5 +77,13 @@ class AccesoSeeder extends Seeder
         $acceso->icono = 'fas fa-file-invoice-dollar';
         $acceso->nivel = 2;
         $acceso->save();
+        $acceso = new Acceso();
+        $acceso->nombre = 'cliente';
+        $acceso->descripcion = 'Clientes';
+        $acceso->modulo = $menu->id;
+        $acceso->ruta = 'cliente.index';
+        $acceso->icono = 'fas fa-user-friends';
+        $acceso->nivel = 2;
+        $acceso->save();
     }
 }

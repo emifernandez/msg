@@ -13,7 +13,9 @@ try {
     require('../../vendor/almasaeed2010/adminlte/dist/js/adminlte');
 
     require('bootstrap');
-} catch (e) {}
+    require("inputmask/dist/jquery.inputmask.js");
+    require("inputmask");
+} catch (e) { }
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

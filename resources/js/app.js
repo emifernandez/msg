@@ -5,11 +5,10 @@
  */
 
 require('./bootstrap');
-require( '../../node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js' );
+require('../../node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js');
 
 window.Vue = require('vue').default;
-window.Swal = require('sweetalert2');
-window.dt = require( 'datatables.net' );
+window.dt = require('datatables.net');
 
 /**
  * The following block of code may be used to automatically register your

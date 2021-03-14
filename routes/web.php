@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Cliente\ClienteController;
 use App\Http\Controllers\Rol\RolController;
 use App\Http\Controllers\Salon\SalonController;
 use App\Http\Controllers\Servicio\ServicioController;
@@ -26,6 +27,7 @@ Auth::routes();
 Route::group(['middleware' => ['auth', 'roles']], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+    Route::resource('cliente', ClienteController::class);
     Route::resource('rol', RolController::class);
     Route::resource('salon', SalonController::class);
     Route::resource('servicio', ServicioController::class);
