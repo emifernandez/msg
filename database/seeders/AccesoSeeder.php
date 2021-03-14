@@ -85,5 +85,13 @@ class AccesoSeeder extends Seeder
         $acceso->icono = 'fas fa-user-friends';
         $acceso->nivel = 2;
         $acceso->save();
+        $acceso = new Acceso();
+        $acceso->nombre = 'empleado';
+        $acceso->descripcion = 'Empleados';
+        $acceso->modulo = $menu->id;
+        $acceso->ruta = 'empleado.index';
+        $acceso->icono = 'fas fa-user-friends';
+        $acceso->nivel = 2;
+        $acceso->save();
     }
 }
