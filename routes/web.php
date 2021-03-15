@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Cliente\ClienteController;
 use App\Http\Controllers\Empleado\EmpleadoController;
+use App\Http\Controllers\Marca\MarcaController;
 use App\Http\Controllers\Proveedor\ProveedorController;
 use App\Http\Controllers\Rol\RolController;
 use App\Http\Controllers\Salon\SalonController;
@@ -31,6 +32,7 @@ Route::group(['middleware' => ['auth', 'roles']], function () {
 
     Route::resource('cliente', ClienteController::class);
     Route::resource('empleado', EmpleadoController::class);
+    Route::resource('marca', MarcaController::class);
     Route::resource('proveedor', ProveedorController::class);
     Route::resource('rol', RolController::class);
     Route::resource('salon', SalonController::class);

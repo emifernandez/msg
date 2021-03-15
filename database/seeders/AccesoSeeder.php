@@ -101,5 +101,21 @@ class AccesoSeeder extends Seeder
         $acceso->icono = 'fas fa-truck';
         $acceso->nivel = 2;
         $acceso->save();
+
+        /*******************************************************/
+        $menu = new Acceso();
+        $menu->nombre = 'parametros';
+        $menu->descripcion = 'Parámetros';
+        $menu->icono = 'fas fa-th-large';
+        $menu->nivel = 1;
+        $menu->save();
+        $acceso = new Acceso();
+        $acceso->nombre = 'marca';
+        $acceso->descripcion = 'Marcas';
+        $acceso->modulo = $menu->id;
+        $acceso->ruta = 'marca.index';
+        $acceso->icono = 'fas fa-border-all';
+        $acceso->nivel = 2;
+        $acceso->save();
     }
 }
