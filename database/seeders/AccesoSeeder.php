@@ -117,5 +117,13 @@ class AccesoSeeder extends Seeder
         $acceso->icono = 'fas fa-border-all';
         $acceso->nivel = 2;
         $acceso->save();
+        $acceso = new Acceso();
+        $acceso->nombre = 'unidad';
+        $acceso->descripcion = 'Unidades de Medida';
+        $acceso->modulo = $menu->id;
+        $acceso->ruta = 'unidad.index';
+        $acceso->icono = 'fas fa-ruler-combined';
+        $acceso->nivel = 2;
+        $acceso->save();
     }
 }
