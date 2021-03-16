@@ -24,4 +24,9 @@ class Marca extends Model
     {
         return ucwords($nombre);
     }
+
+    public function productos()
+    {
+        return $this->hasMany(Producto::class, 'marca_id');
+    }
 }

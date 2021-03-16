@@ -101,6 +101,14 @@ class AccesoSeeder extends Seeder
         $acceso->icono = 'fas fa-truck';
         $acceso->nivel = 2;
         $acceso->save();
+        $acceso = new Acceso();
+        $acceso->nombre = 'producto';
+        $acceso->descripcion = 'Productos';
+        $acceso->modulo = $menu->id;
+        $acceso->ruta = 'producto.index';
+        $acceso->icono = 'fas fa-box';
+        $acceso->nivel = 2;
+        $acceso->save();
 
         /*******************************************************/
         $menu = new Acceso();

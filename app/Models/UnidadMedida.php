@@ -25,4 +25,9 @@ class UnidadMedida extends Model
     {
         return ucwords($nombre);
     }
+
+    public function productos()
+    {
+        return $this->hasMany(Producto::class, 'unidad_id');
+    }
 }
