@@ -14,11 +14,6 @@ class Producto extends Model
         '2' => 'Inactivo',
     ];
 
-    const TIPO = [
-        '1' => 'Venta',
-        '2' => 'Insumo',
-    ];
-
     protected $table = 'productos';
     protected $fillable = [
         'nombre',
@@ -26,9 +21,9 @@ class Producto extends Model
         'codigo_barra',
         'iva',
         'estado',
-        'tipo',
         'unidad_id',
         'marca_id',
+        'grupo_id',
     ];
 
     public function setNombreAttribute($nombre)
@@ -49,5 +44,10 @@ class Producto extends Model
     public function unidad()
     {
         return $this->belongsTo(UnidadMedida::class, 'unidad_id');
+    }
+
+    public function grupo()
+    {
+        return $this->belongsTo(Grupo::class, 'grupo_id');
     }
 }

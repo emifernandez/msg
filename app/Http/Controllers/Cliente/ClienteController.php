@@ -38,11 +38,13 @@ class ClienteController extends Controller
         $estados = Cliente::ESTADO;
         $calificaciones = Cliente::CALIFICACION;
         $tipos_documentos = Cliente::TIPO_DOCUMENTO;
+        $tipos_clientes = Cliente::TIPO_CLIENTE;
         $generos = Cliente::GENERO;
         return view('cliente.create')
             ->with('estados', $estados)
             ->with('calificaciones', $calificaciones)
             ->with('tipos_documentos', $tipos_documentos)
+            ->with('tipos_clientes', $tipos_clientes)
             ->with('generos', $generos);
     }
 
@@ -85,11 +87,13 @@ class ClienteController extends Controller
         $estados = Cliente::ESTADO;
         $calificaciones = Cliente::CALIFICACION;
         $tipos_documentos = Cliente::TIPO_DOCUMENTO;
+        $tipos_clientes = Cliente::TIPO_CLIENTE;
         $generos = Cliente::GENERO;
         return view('cliente.edit')
             ->with('estados', $estados)
             ->with('calificaciones', $calificaciones)
             ->with('tipos_documentos', $tipos_documentos)
+            ->with('tipos_clientes', $tipos_clientes)
             ->with('generos', $generos)
             ->with('cliente', $cliente);
     }

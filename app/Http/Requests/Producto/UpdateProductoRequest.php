@@ -29,6 +29,7 @@ class UpdateProductoRequest extends FormRequest
             'iva' => 'required|numeric|min:0|max:100',
             'unidad_id' => 'required',
             'marca_id' => 'required',
+            'grupo_id' => 'required',
 
         ];
     }
@@ -50,6 +51,7 @@ class UpdateProductoRequest extends FormRequest
             'iva.max' => 'El IVA no puede ser mayor a cien',
             'unidad_id.required' => 'Debe introducir una unidad de medida para el producto',
             'marca_id.required' => 'Debe introducir una marca para el producto',
+            'grupo_id.required' => 'Debe introducir un grupo para el producto',
         ];
     }
 }

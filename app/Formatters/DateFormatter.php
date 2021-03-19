@@ -16,7 +16,7 @@ class DateFormatter
      */
     public function __construct($date)
     {
-        $this->date = Carbon::parse($date);
+        $this->date = Carbon::make($date);
     }
 
     /**
@@ -24,22 +24,22 @@ class DateFormatter
      */
     public function forForm()
     {
-        return $this->date->format('d-m-Y');
+        return $this->date == null ? '' : $this->date->format('d-m-Y');
     }
 
     public function forString()
     {
-        return $this->date->format('Y-m-');
+        return $this->date == null ? '' : $this->date->format('Y-m-');
     }
 
     public function forFormDateHour()
     {
-        return $this->date->format('d-m-Y H:i:s');
+        return $this->date == null ? '' : $this->date->format('d-m-Y H:i:s');
     }
 
     public function forFormHour()
     {
-        return $this->date->format('H:i');
+        return $this->date == null ? '' : $this->date->format('H:i');
     }
 
     public function getWeekDay()

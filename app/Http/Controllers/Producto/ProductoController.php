@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Producto;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Producto\StoreProductoRequest;
 use App\Http\Requests\Producto\UpdateProductoRequest;
+use App\Models\Grupo;
 use App\Models\Marca;
 use App\Models\Producto;
 use App\Models\UnidadMedida;
@@ -22,12 +23,10 @@ class ProductoController extends Controller
         $aux = new Producto();
         $this->authorize('view', $aux);
         $productos = Producto::orderBy('nombre', 'asc')->get();
-        $tipos = Producto::TIPO;
         $estados = Producto::ESTADO;
         return view('producto.index')
             ->with('productos', $productos)
             ->with('estados', $estados)
-            ->with('tipos', $tipos)
             ->with('aux', $aux);
     }
 
@@ -41,12 +40,12 @@ class ProductoController extends Controller
         $this->authorize('create', new Producto());
         $marcas = Marca::orderBy('nombre', 'asc')->get();
         $unidades = UnidadMedida::orderBy('nombre', 'asc')->get();
-        $tipos = Producto::TIPO;
+        $grupos = Grupo::orderBy('nombre', 'asc')->get();
         $estados = Producto::ESTADO;
         return view('producto.create')
             ->with('estados', $estados)
-            ->with('tipos', $tipos)
             ->with('marcas', $marcas)
+            ->with('grupos', $grupos)
             ->with('unidades', $unidades);
     }
 
@@ -88,13 +87,13 @@ class ProductoController extends Controller
         $this->authorize('update', new Producto());
         $marcas = Marca::orderBy('nombre', 'asc')->get();
         $unidades = UnidadMedida::orderBy('nombre', 'asc')->get();
-        $tipos = Producto::TIPO;
+        $grupos = Grupo::orderBy('nombre', 'asc')->get();
         $estados = Producto::ESTADO;
         return view('producto.edit')
             ->with('estados', $estados)
-            ->with('tipos', $tipos)
             ->with('marcas', $marcas)
             ->with('unidades', $unidades)
+            ->with('grupos', $grupos)
             ->with('producto', $producto);
     }
 

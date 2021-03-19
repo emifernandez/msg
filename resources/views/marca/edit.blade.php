@@ -23,7 +23,7 @@
                                             name="nombre"
                                             id="nombre"
                                             value="{{ old('nombre', $marca->nombre) }}"
-                                            placeholder="Introduzca nombre del salón">
+                                            placeholder="Introduzca nombre de la marca">
                                             @foreach ($errors->get('nombre') as $error)
                                                 <span class="text text-danger">{{ $error }}</span>
                                             @endforeach

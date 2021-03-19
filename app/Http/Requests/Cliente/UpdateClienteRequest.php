@@ -23,18 +23,28 @@ class UpdateClienteRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'tipo_documento' => 'required',
-            'numero_documento' => 'required|max:10|unique:clientes,numero_documento,' . $this->cliente->id,
-            'ruc' => 'max:10',
-            'genero' => 'required',
-            'email' => 'email',
-            'fecha_nacimiento' => 'required',
-            'fecha_ingreso' => 'required',
+        //tipo cliente fisico
+        if ($this->request->get('tipo_cliente') == 1) {
+            return [
+                'nombre' => 'required',
+                'apellido' => 'required',
+                'tipo_documento' => 'required',
+                'numero_documento' => 'required|max:10|unique:clientes,numero_documento,' . $this->cliente->id,
+                'ruc' => 'max:10',
+                'genero' => 'required',
+                'fecha_nacimiento' => 'required',
+                'fecha_ingreso' => 'required',
 
-        ];
+            ];
+        } else { //tipo cliente juridico
+            return [
+                'razon_social' => 'required',
+                'tipo_documento' => 'required',
+                'ruc' => 'required|max:10|unique:clientes,ruc,' . $this->cliente->id,
+                'fecha_ingreso' => 'required',
+
+            ];
+        }
     }
 
     /**
@@ -51,6 +61,7 @@ class UpdateClienteRequest extends FormRequest
             'numero_documento.required' => 'Debe introducir un número de documento para el cliente',
             'numero_documento.max' => 'El número de documento del cliente no puede exceder 10 caracteres',
             'numero_documento.unique' => 'El número de documento ingresado ya existe',
+            'ruc.unique' => 'El RUC ingresado ya existe',
             'ruc.max' => 'El RUC del cliente no puede exceder 10 caracteres',
             'genero.required' => 'Debe introducir un género para el cliente',
             'email.email' => 'Debe introducir un email válido',

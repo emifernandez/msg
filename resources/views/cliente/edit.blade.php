@@ -17,7 +17,26 @@
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Tipo Cliente</label>
+                                                <select class="form-control" name="tipo_cliente" id="tipo_cliente">
+                                                    @foreach($tipos_clientes as $key => $tipo_cliente)
+                                                        <option value="{{ $key }}"
+                                                            @if ($key == old('tipo_cliente', $cliente->tipo_cliente)) 
+                                                                selected 
+                                                            @elseif ($key == 1)
+                                                                selected 
+                                                            @endif
+                                                            >{{ $tipo_cliente }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @foreach ($errors->get('tipo_cliente') as $error)
+                                                    <span class="text text-danger">{{ $error }}</span>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Categoría</label>
                                                 <select class="form-control" name="calificacion" id="calificacion">
@@ -34,7 +53,7 @@
                                                 @endforeach
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Estado</label>
                                                 <select class="form-control" name="estado" id="estado">
@@ -49,7 +68,7 @@
                                                 @endforeach
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="fecha_ingreso">Fecha Ingreso</label>
                                                 <div class="input-group">
@@ -200,10 +219,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control datemask"
-                                                    data-inputmask-alias="datetime"
-                                                    data-inputmask-inputformat="dd-mm-yyyy"
-                                                    data-mask
+                                                    <input type="text" class="form-control"
                                                     name="fecha_nacimiento"
                                                     id="fecha_nacimiento"
                                                     value="{{ old('fecha_nacimiento', $cliente->fecha_nacimiento->forForm()) }}">
@@ -245,3 +261,6 @@
 	</div>
 </div>
 @stop
+@section('js')
+<script type="text/javascript" src="{!! asset('js/validacion-cliente.js') !!}"></script>
+@endsection

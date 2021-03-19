@@ -88,15 +88,16 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
-                                                <label>Tipo</label>
-                                                <select class="form-control" name="tipo" id="tipo">
-                                                    @foreach($tipos as $key => $tipo)
-                                                        <option value="{{ $key }}"
-                                                            @if($key == old('tipo')) selected @endif
-                                                            >{{ $tipo }}</option>
+                                                <label>Grupo</label>
+                                                <select class="form-control" name="grupo_id" id="grupo_id">
+                                                    <option value="">Seleccione un grupo</option>
+                                                    @foreach($grupos as $key => $grupo)
+                                                        <option value="{{ $grupo->id }}"
+                                                            @if($grupo->id == old('grupo_id')) selected @endif
+                                                            >{{ $grupo->nombre }}</option>
                                                     @endforeach
                                                 </select>
-                                                @foreach ($errors->get('tipo') as $error)
+                                                @foreach ($errors->get('grupo_id') as $error)
                                                     <span class="text text-danger">{{ $error }}</span>
                                                 @endforeach
                                             </div>

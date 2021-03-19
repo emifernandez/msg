@@ -21,6 +21,11 @@ class Cliente extends Model
         '3' => 'DNI',
     ];
 
+    const TIPO_CLIENTE = [
+        '1' => 'Físico',
+        '2' => 'Jurídico',
+    ];
+
     const CALIFICACION = [
         '1' => 'Muy Bajo',
         '2' => 'Bajo',
@@ -42,6 +47,7 @@ class Cliente extends Model
         'apellido',
         'razon_social',
         'tipo_documento',
+        'tipo_cliente',
         'numero_documento',
         'ruc',
         'genero',

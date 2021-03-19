@@ -1,8 +1,8 @@
 @extends('adminlte::page')
-@section('title', 'Productos')
+@section('title', 'Grupos')
 
 @section('content_header')
-    <h1>Productos</h1>
+    <h1>Grupos</h1>
 @stop
 
 @section('content')
@@ -11,7 +11,7 @@
 <div class="panel panel-default">
     <div style="margin: 10px;" class="panel-heading">
         @can('create', $aux)
-        <a  href="{{route('producto.create')}}" class="btn btn-primary">Nuevo Producto</a>
+        <a  href="{{route('grupo.create')}}" class="btn btn-primary">Nuevo Grupo</a>
         @endcan
     </div>
     <div class="panel-body">
@@ -19,28 +19,22 @@
             <table width="100%" class="table table-striped table-bordered table-hover" id="tabla">
                 <thead>
                     <tr>
-                        <th>Producto</th>
-                        <th>Codigo</th>
-                        <th>Marca</th>
-                        <th>Estado</th>
+                        <th>Grupo</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($productos as $key => $producto)
+                    @foreach($grupos as $key => $grupo)
                     <tr>
-                        <td>{{ $producto->nombre }}</td>
-                        <td>{{ $producto->codigo_barra }}</td>
-                        <td>{{ $producto->marca->nombre }}</td>
-                        <td>{{ $estados[$producto->estado] }}</td>
+                        <td>{{ $grupo->nombre }}</td>
                         <td style="display: block;  margin: auto;">
-                            @can('delete', $producto)
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$producto->id}}">
+                            @can('delete', $grupo)
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$grupo->id}}">
                                 <i class="fas fa-trash-alt" aria-hidden="true"></i>
                             </button>
                             @endcan
-                            @can('update', $producto)
-                            <a href="{{ route('producto.edit', $producto->id) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
+                            @can('update', $grupo)
+                            <a href="{{ route('grupo.edit', $grupo->id) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
                             @endcan
                         </td>
                     </tr>
@@ -54,12 +48,12 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header bg-danger">
-          <h4 class="modal-title">Eliminar Producto</h4>
+          <h4 class="modal-title">Eliminar Grupo</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="{{ route('producto.destroy', 'test')}}" method="post">
+        <form action="{{ route('grupo.destroy', 'test')}}" method="post">
             @csrf
             @method('DELETE')
             <div class="modal-body">

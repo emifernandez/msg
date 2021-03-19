@@ -20,9 +20,9 @@ class Productos extends Migration
             $table->string('codigo_barra');
             $table->decimal('iva', $precision = 5, $scale = 2);
             $table->char('estado', 1);
-            $table->char('tipo', 1);
             $table->unsignedBigInteger('unidad_id');
             $table->unsignedBigInteger('marca_id');
+            $table->unsignedBigInteger('grupo_id');
             $table->timestamps();
 
             $table->foreign('unidad_id')
@@ -31,6 +31,9 @@ class Productos extends Migration
             $table->foreign('marca_id')
                 ->references('id')
                 ->on('marcas');
+            $table->foreign('grupo_id')
+                ->references('id')
+                ->on('grupos');
         });
     }
 

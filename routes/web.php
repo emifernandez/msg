@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Cliente\ClienteController;
 use App\Http\Controllers\Empleado\EmpleadoController;
+use App\Http\Controllers\Grupo\GrupoController;
 use App\Http\Controllers\Marca\MarcaController;
 use App\Http\Controllers\Producto\ProductoController;
 use App\Http\Controllers\Proveedor\ProveedorController;
@@ -34,6 +35,7 @@ Route::group(['middleware' => ['auth', 'roles']], function () {
 
     Route::resource('cliente', ClienteController::class);
     Route::resource('empleado', EmpleadoController::class);
+    Route::resource('grupo', GrupoController::class);
     Route::resource('marca', MarcaController::class);
     Route::resource('producto', ProductoController::class);
     Route::resource('proveedor', ProveedorController::class);

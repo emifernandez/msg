@@ -133,5 +133,13 @@ class AccesoSeeder extends Seeder
         $acceso->icono = 'fas fa-ruler-combined';
         $acceso->nivel = 2;
         $acceso->save();
+        $acceso = new Acceso();
+        $acceso->nombre = 'grupo';
+        $acceso->descripcion = 'Grupos';
+        $acceso->modulo = $menu->id;
+        $acceso->ruta = 'grupo.index';
+        $acceso->icono = 'fas fa-layer-group';
+        $acceso->nivel = 2;
+        $acceso->save();
     }
 }
