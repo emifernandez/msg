@@ -95,6 +95,13 @@
             });
 
             $('.datemask').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' })
+
+            $('.datepicker').datepicker({
+                format: 'dd-mm-yyyy',
+                orientation: "bottom right",
+                todayHighlight: true,
+                autoclose: true,
+            });
         });
     </script>
 @stop

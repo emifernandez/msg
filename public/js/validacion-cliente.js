@@ -26,21 +26,13 @@ $(document).ready(function () {
 
     function setFields(tipo) {
         var val = tipo == 2; // es juridico
-        // if (val) {
-        //     $('#fecha_nacimiento').removeAttr('data-inputmask-alias');
-        //     $('#fecha_nacimiento').removeAttr('data-inputmask-inputformat');
-        //     $('#fecha_nacimiento').removeAttr('data-mask');
-        //     $('#fecha_nacimiento').removeAttr('class');
-        // } else {
-        //     $('#fecha_nacimiento').attr('class', 'form-control datemask');
-        //     $('#fecha_nacimiento').attr('data-inputmask-alias', 'datetime');
-        //     $('#fecha_nacimiento').attr('data-inputmask-inputformat', 'dd-mm-yyyy');
-        //     $('#fecha_nacimiento').attr('data-mask');
-        // }
         if (val) {
             $('#nombre').val('');
             $('#apellido').val('');
+            $('#numero_documento').val('');
             $('#genero').val(1);
+            $('#fecha_nacimiento').val(null);
+        } else {
         }
         $('#numero_documento').attr('readonly', val);
         $('#tipo_documento').attr('readonly', val);

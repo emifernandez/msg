@@ -222,7 +222,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control"
+                                                    <input type="text" class="form-control datepicker"
                                                     name="fecha_nacimiento"
                                                     id="fecha_nacimiento"
                                                     value="{{ old('fecha_nacimiento') }}">
@@ -252,7 +252,7 @@
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Grabar</button>
+                                    <button type="submit" formnovalidate class="btn btn-primary">Grabar</button>
                                     <a href="{{ route('cliente.index') }}" class="btn btn-secondary btn-close">Cancelar</a>
                                 </div>
                             </form>

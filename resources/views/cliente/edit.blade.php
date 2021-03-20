@@ -219,7 +219,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control"
+                                                    <input type="text" class="form-control datepicker"
                                                     name="fecha_nacimiento"
                                                     id="fecha_nacimiento"
                                                     value="{{ old('fecha_nacimiento', $cliente->fecha_nacimiento->forForm()) }}">

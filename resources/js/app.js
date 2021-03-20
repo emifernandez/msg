@@ -6,7 +6,7 @@
 
 require('./bootstrap');
 require('../../node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js');
-
+require('../../node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.js');
 window.Vue = require('vue').default;
 window.dt = require('datatables.net');
 

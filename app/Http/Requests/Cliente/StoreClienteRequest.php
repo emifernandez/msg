@@ -30,10 +30,11 @@ class StoreClienteRequest extends FormRequest
                 'apellido' => 'required',
                 'tipo_documento' => 'required',
                 'numero_documento' => 'required|max:10|unique:clientes,numero_documento',
-                'ruc' => 'max:10',
+                'ruc' => 'max:10|unique:clientes,ruc',
                 'genero' => 'required',
                 'fecha_nacimiento' => 'required',
                 'fecha_ingreso' => 'required',
+                'telefono' => 'required',
 
             ];
         } else { //tipo cliente juridico
@@ -42,6 +43,7 @@ class StoreClienteRequest extends FormRequest
                 'tipo_documento' => 'required',
                 'ruc' => 'required|max:10|unique:clientes,ruc',
                 'fecha_ingreso' => 'required',
+                'telefono' => 'required',
 
             ];
         }
@@ -69,6 +71,7 @@ class StoreClienteRequest extends FormRequest
             'email.email' => 'Debe introducir un email válido',
             'fecha_nacimiento.required' => 'Debe introducir una fecha de nacimiento para el cliente',
             'fecha_ingreso.required' => 'Debe introducir una fecha de ingreso para el cliente',
+            'telefono.required' => 'Debe introducir un teléfono para el cliente',
         ];
     }
 }

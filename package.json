@@ -27,6 +27,8 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.2",
         "@popperjs/core": "^2.7.2",
+        "bootstrap-datepicker": "^1.9.0",
+        "bootstrap-datetime-picker": "^2.4.4",
         "datatables.net": "^1.10.23",
         "datatables.net-bs4": "^1.10.23",
         "datatables.net-buttons": "^1.6.5",
@@ -34,6 +36,7 @@
         "datatables.net-dt": "^1.10.23",
         "icheck-bootstrap": "^3.0.1",
         "inputmask": "^5.0.5",
+        "moment": "^2.29.1",
         "overlayscrollbars": "^1.13.1"
     }
 }
