@@ -40,7 +40,6 @@ $(document).ready(function () {
         $('#apellido').attr('readonly', val);
         $('#genero').attr('readonly', val);
         $('#fecha_nacimiento').attr('readonly', val);
-        $('#razon_social').attr('readonly', !val);
 
 
 

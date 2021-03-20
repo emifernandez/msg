@@ -32,7 +32,7 @@ class StoreClienteRequest extends FormRequest
                 'numero_documento' => 'required|max:10|unique:clientes,numero_documento',
                 'ruc' => 'max:10|unique:clientes,ruc',
                 'genero' => 'required',
-                'fecha_nacimiento' => 'required',
+                'fecha_nacimiento' => 'required|before:date',
                 'fecha_ingreso' => 'required',
                 'telefono' => 'required',
 
@@ -72,6 +72,7 @@ class StoreClienteRequest extends FormRequest
             'fecha_nacimiento.required' => 'Debe introducir una fecha de nacimiento para el cliente',
             'fecha_ingreso.required' => 'Debe introducir una fecha de ingreso para el cliente',
             'telefono.required' => 'Debe introducir un teléfono para el cliente',
+            'fecha_nacimiento.before' => 'La fecha de nacimiento no puede ser mayor a la fecha actual'
         ];
     }
 }

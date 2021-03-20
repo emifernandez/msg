@@ -33,6 +33,7 @@ class UpdateClienteRequest extends FormRequest
                 'ruc' => 'max:10|unique:clientes,ruc,' . $this->cliente->id,
                 'genero' => 'required',
                 'fecha_nacimiento' => 'required|date',
+                'fecha_nacimiento' => 'required|before:date',
                 'fecha_ingreso' => 'required',
                 'telefono' => 'required',
 
@@ -44,7 +45,6 @@ class UpdateClienteRequest extends FormRequest
                 'ruc' => 'required|max:10|unique:clientes,ruc,' . $this->cliente->id,
                 'fecha_ingreso' => 'required',
                 'telefono' => 'required',
-
             ];
         }
     }
@@ -70,6 +70,7 @@ class UpdateClienteRequest extends FormRequest
             'fecha_nacimiento.required' => 'Debe introducir una fecha de nacimiento para el cliente',
             'fecha_ingreso.required' => 'Debe introducir una fecha de ingreso para el cliente',
             'telefono.required' => 'Debe introducir un teléfono para el cliente',
+            'fecha_nacimiento.before' => 'La fecha de nacimiento no puede ser mayor a la fecha actual'
         ];
     }
 }
