@@ -27,7 +27,7 @@ class StoreUsuarioRequest extends FormRequest
             'email' => 'required|email|unique:users,email',
             'name' => 'required',
             'lastname' => 'required',
-            'password' => 'required|confirmed',
+            'password' => 'required|confirmed|min:8',
             'rol' => 'required',
         ];
     }
@@ -47,6 +47,7 @@ class StoreUsuarioRequest extends FormRequest
             'lastname.required' => 'Debe introducir el apellido para el usuario',
             'password.required' => 'Debe introducir una contraseña para el usuario',
             'password.confirmed' => 'La confirmación de contraseña no coincide',
+            'password.min' => 'La contraseña debe contener al menos 8 caracteres',
             'rol.required' => 'Debe introducir un rol para el usuario',
         ];
     }
