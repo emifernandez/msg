@@ -106,6 +106,7 @@ return [
 
     'attributes' => [
         'name' => 'nombre',
+        'lastname' => 'apellido',
         'password' => 'contraseña'
     ],
 
