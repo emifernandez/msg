@@ -32,7 +32,7 @@ class StoreClienteRequest extends FormRequest
                 'numero_documento' => 'required|max:10|unique:clientes,numero_documento',
                 'ruc' => 'max:10|unique:clientes,ruc',
                 'genero' => 'required',
-                'fecha_nacimiento' => 'required|before:date',
+                'fecha_nacimiento' => 'required|before:' . date('d-m-Y'),
                 'fecha_ingreso' => 'required',
                 'telefono' => 'required',
 

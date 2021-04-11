@@ -76,7 +76,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control" readonly
+                                                    <input type="text" class="form-control datepicker"
                                                     data-inputmask-alias="datetime"
                                                     data-inputmask-inputformat="dd-mm-yyyy"
                                                     data-mask

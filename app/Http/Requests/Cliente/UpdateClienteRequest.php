@@ -33,7 +33,7 @@ class UpdateClienteRequest extends FormRequest
                 'ruc' => 'max:10|unique:clientes,ruc,' . $this->cliente->id,
                 'genero' => 'required',
                 'fecha_nacimiento' => 'required|date',
-                'fecha_nacimiento' => 'required|before:date',
+                'fecha_nacimiento' => 'required|before:' . date('d-m-Y'),
                 'fecha_ingreso' => 'required',
                 'telefono' => 'required',
 
