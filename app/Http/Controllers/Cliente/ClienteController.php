@@ -70,7 +70,7 @@ class ClienteController extends Controller
             $cliente->fecha_ingreso = now();
             $cliente->estado = 1; //activo
             $cliente->save();
-            if ($cliente->tipo_cliente = '1') {
+            if ($cliente->tipo_cliente == '1') {
                 $usuario = new User();
                 $usuario->name = $cliente->nombre;
                 $usuario->lastname = $cliente->apellido;

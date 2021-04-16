@@ -50,7 +50,7 @@ class AccesoSeeder extends Seeder
         $menu = new Acceso();
         $menu->nombre = 'datos-basicos';
         $menu->descripcion = 'Datos Básicos';
-        $menu->icono = 'fas fa-cogs';
+        $menu->icono = 'fas fa-fw fa-cogs';
         $menu->nivel = 1;
         $menu->save();
         $acceso = new Acceso();
@@ -58,7 +58,7 @@ class AccesoSeeder extends Seeder
         $acceso->descripcion = 'Salones';
         $acceso->modulo = $menu->id;
         $acceso->ruta = 'salon.index';
-        $acceso->icono = 'fas fa-door-open';
+        $acceso->icono = 'fas fa-fw fa-door-open';
         $acceso->nivel = 2;
         $acceso->save();
         $acceso = new Acceso();
@@ -66,7 +66,7 @@ class AccesoSeeder extends Seeder
         $acceso->descripcion = 'Servicios';
         $acceso->modulo = $menu->id;
         $acceso->ruta = 'servicio.index';
-        $acceso->icono = 'fas fa-calendar-check';
+        $acceso->icono = 'fas fa-fw fa-calendar-check';
         $acceso->nivel = 2;
         $acceso->save();
         $acceso = new Acceso();
@@ -74,7 +74,7 @@ class AccesoSeeder extends Seeder
         $acceso->descripcion = 'Tipos de Crédito';
         $acceso->modulo = $menu->id;
         $acceso->ruta = 'tipo-credito.index';
-        $acceso->icono = 'fas fa-file-invoice-dollar';
+        $acceso->icono = 'fas fa-fw fa-file-invoice-dollar';
         $acceso->nivel = 2;
         $acceso->save();
         $acceso = new Acceso();
@@ -82,7 +82,15 @@ class AccesoSeeder extends Seeder
         $acceso->descripcion = 'Clientes';
         $acceso->modulo = $menu->id;
         $acceso->ruta = 'cliente.index';
-        $acceso->icono = 'fas fa-user-friends';
+        $acceso->icono = 'fas fa-fw fa-user-friends';
+        $acceso->nivel = 2;
+        $acceso->save();
+        $acceso = new Acceso();
+        $acceso->nombre = 'ficha';
+        $acceso->descripcion = 'Ficha Clientes';
+        $acceso->modulo = $menu->id;
+        $acceso->ruta = 'ficha.index';
+        $acceso->icono = 'fas fa-fw fa-id-card';
         $acceso->nivel = 2;
         $acceso->save();
         $acceso = new Acceso();
@@ -90,7 +98,7 @@ class AccesoSeeder extends Seeder
         $acceso->descripcion = 'Empleados';
         $acceso->modulo = $menu->id;
         $acceso->ruta = 'empleado.index';
-        $acceso->icono = 'fas fa-user-tag';
+        $acceso->icono = 'fas fa-fw fa-user-tag';
         $acceso->nivel = 2;
         $acceso->save();
         $acceso = new Acceso();
@@ -98,7 +106,7 @@ class AccesoSeeder extends Seeder
         $acceso->descripcion = 'Proveedores';
         $acceso->modulo = $menu->id;
         $acceso->ruta = 'proveedor.index';
-        $acceso->icono = 'fas fa-truck';
+        $acceso->icono = 'fas fa-fw fa-truck';
         $acceso->nivel = 2;
         $acceso->save();
         $acceso = new Acceso();
@@ -106,7 +114,7 @@ class AccesoSeeder extends Seeder
         $acceso->descripcion = 'Productos';
         $acceso->modulo = $menu->id;
         $acceso->ruta = 'producto.index';
-        $acceso->icono = 'fas fa-box';
+        $acceso->icono = 'fas fa-fw fa-box';
         $acceso->nivel = 2;
         $acceso->save();
 
@@ -114,7 +122,7 @@ class AccesoSeeder extends Seeder
         $menu = new Acceso();
         $menu->nombre = 'parametros';
         $menu->descripcion = 'Parámetros';
-        $menu->icono = 'fas fa-th-large';
+        $menu->icono = 'fas fa-fw fa-th-large';
         $menu->nivel = 1;
         $menu->save();
         $acceso = new Acceso();
@@ -122,7 +130,7 @@ class AccesoSeeder extends Seeder
         $acceso->descripcion = 'Marcas';
         $acceso->modulo = $menu->id;
         $acceso->ruta = 'marca.index';
-        $acceso->icono = 'fas fa-border-all';
+        $acceso->icono = 'fas fa-fw fa-border-all';
         $acceso->nivel = 2;
         $acceso->save();
         $acceso = new Acceso();
@@ -130,7 +138,7 @@ class AccesoSeeder extends Seeder
         $acceso->descripcion = 'Unidades de Medida';
         $acceso->modulo = $menu->id;
         $acceso->ruta = 'unidad.index';
-        $acceso->icono = 'fas fa-ruler-combined';
+        $acceso->icono = 'fas fa-fw fa-ruler-combined';
         $acceso->nivel = 2;
         $acceso->save();
         $acceso = new Acceso();
@@ -138,7 +146,7 @@ class AccesoSeeder extends Seeder
         $acceso->descripcion = 'Grupos';
         $acceso->modulo = $menu->id;
         $acceso->ruta = 'grupo.index';
-        $acceso->icono = 'fas fa-layer-group';
+        $acceso->icono = 'fas fa-fw fa-layer-group';
         $acceso->nivel = 2;
         $acceso->save();
     }

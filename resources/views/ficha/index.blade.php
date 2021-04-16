@@ -1,8 +1,8 @@
 @extends('adminlte::page')
-@section('title', 'Clientes')
+@section('title', 'Ficha Cliente')
 
 @section('content_header')
-    <h1>Clientes</h1>
+    <h1>Ficha Cliente</h1>
 @stop
 
 @section('content')
@@ -11,7 +11,7 @@
 <div class="panel panel-default">
     <div style="margin: 10px;" class="panel-heading">
         @can('create', $aux)
-        <a  href="{{route('cliente.create')}}" class="btn btn-primary">Nuevo Cliente</a>
+        <a  href="{{route('ficha.create')}}" class="btn btn-primary">Nueva Ficha</a>
         @endcan
     </div>
     <div class="panel-body">
@@ -19,36 +19,27 @@
             <table width="100%" class="table table-striped table-bordered table-hover" id="tabla">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Razón Social</th>
-                        <th>Nro. Documento</th>
-                        <th>Ruc</th>
-                        <th>Estado</th>
+                        <th>Cliente</th>
+                        <th>Altura</th>
+                        <th>Peso</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($clientes as $key => $cliente)
+                    @foreach($fichas as $key => $ficha)
                     <tr>
-                        <td>{{ $cliente->nombre }}</td>
-                        <td>{{ $cliente->apellido }}</td>
-                        <td>{{ $cliente->razon_social }}</td>
-                        <td>{{ $cliente->numero_documento }}</td>
-                        <td>{{ $cliente->ruc }}</td>
-                        <td>{{ $estados[$cliente->estado] }}</td>
+                        <td>{{ $ficha->cliente->nombre . ' ' . $ficha->cliente->nombre}}</td>
+                        <td>{{ $ficha->altura }}</td>
+                        <td>{{ $ficha->peso }}</td>
                         <td style="display: block;  margin: auto;">
-                            @can('delete', $cliente)
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$cliente->id}}">
+                            @can('delete', $ficha)
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$ficha->id}}">
                                 <i class="fas fa-trash-alt" aria-hidden="true"></i>
                             </button>
                             @endcan
-                            @can('update', $cliente)
-                            <a href="{{ route('cliente.edit', $cliente->id) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
+                            @can('update', $ficha)
+                            <a href="{{ route('ficha.edit', $ficha->id) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
                             @endcan
-                            @if($cliente->tipo_cliente == 1)
-                            <a href="{{ route('ficha.show', $cliente->id) }}" class= "btn btn-info" data-toggle="tooltip" data-placement="top" title="Ficha Cliente"><i class="fas fa-id-card"></i></a>
-                            @endif
                         </td>
                     </tr>
                     @endforeach
@@ -61,12 +52,12 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header bg-danger">
-          <h4 class="modal-title">Eliminar Cliente</h4>
+          <h4 class="modal-title">Eliminar Ficha</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="{{ route('cliente.destroy', 'test')}}" method="post">
+        <form action="{{ route('ficha.destroy', 'test')}}" method="post">
             @csrf
             @method('DELETE')
             <div class="modal-body">
