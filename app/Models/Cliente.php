@@ -58,12 +58,23 @@ class Cliente extends Model
         'fecha_ingreso',
         'calificacion',
         'estado',
+        'organizacion_id',
     ];
 
     protected $dates = [
         'fecha_nacimiento',
         'fecha_ingreso',
     ];
+
+    public function organizacion()
+    {
+        return $this->belongsTo(Cliente::class, 'organizacion_id',);
+    }
+
+    public function asociados()
+    {
+        return $this->hasMany(Cliente::class, 'organizacion_id',);
+    }
 
     public function setNombreAttribute($nombre)
     {

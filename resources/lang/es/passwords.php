@@ -18,5 +18,9 @@ return [
     'sent' => '¡Recordatorio de contraseña enviado!',
     'token' => 'Este token de reestablecimiento de contraseña es inválido.',
     'user' => 'No se ha encontrado un usuario con esa dirección de correo.',
+    'Verify Email Address' => 'Verificar Email',
+    'Please click the button below to verify your email address.' => 'Por favor haz click en el botón de abajo para verificar tu email.',
+    'Verify Email Address' => 'Verificar Email',
+    'If you did not create an account, no further action is required.' => 'Si no creaste una cuenta, ignora este correo.'
 
 ];

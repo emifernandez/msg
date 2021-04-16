@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Notifications\PasswordReset;
+use App\Notifications\VerifyEmailNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
@@ -54,9 +56,19 @@ class User extends Authenticatable
         $this->notify(new PasswordReset($token));
     }
 
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmailNotification($this, $this->generatePassword()));
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Rol::class)->withTimestamps();
+    }
+
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class, 'user_id');
     }
 
     public function authorizeRoles($roles)
@@ -126,5 +138,12 @@ class User extends Authenticatable
             }
         }
         return $menu;
+    }
+
+    public function generatePassword()
+    {
+        $arr = explode("@", $this->email, 2);
+        $string = $arr[0];
+        return substr(md5($string), 10, 10);
     }
 }

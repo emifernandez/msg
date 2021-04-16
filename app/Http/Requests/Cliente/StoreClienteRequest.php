@@ -35,6 +35,7 @@ class StoreClienteRequest extends FormRequest
                 'fecha_nacimiento' => 'required|before:' . date('d-m-Y'),
                 'fecha_ingreso' => 'required',
                 'telefono' => 'required',
+                'email' => 'required|email',
 
             ];
         } else { //tipo cliente juridico
@@ -44,7 +45,6 @@ class StoreClienteRequest extends FormRequest
                 'ruc' => 'required|max:10|unique:clientes,ruc',
                 'fecha_ingreso' => 'required',
                 'telefono' => 'required',
-
             ];
         }
     }
@@ -72,7 +72,8 @@ class StoreClienteRequest extends FormRequest
             'fecha_nacimiento.required' => 'Debe introducir una fecha de nacimiento para el cliente',
             'fecha_ingreso.required' => 'Debe introducir una fecha de ingreso para el cliente',
             'telefono.required' => 'Debe introducir un teléfono para el cliente',
-            'fecha_nacimiento.before' => 'La fecha de nacimiento no puede ser mayor a la fecha actual'
+            'fecha_nacimiento.before' => 'La fecha de nacimiento no puede ser mayor a la fecha actual',
+            'email.required' => 'Debe introducir un email para el cliente',
         ];
     }
 }

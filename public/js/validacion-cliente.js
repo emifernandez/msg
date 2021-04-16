@@ -32,6 +32,7 @@ $(document).ready(function () {
             $('#numero_documento').val('');
             $('#genero').val(1);
             $('#fecha_nacimiento').val(null);
+            $('#organizacion_id').val(null);
         } else {
         }
         $('#numero_documento').attr('readonly', val);
@@ -40,6 +41,7 @@ $(document).ready(function () {
         $('#apellido').attr('readonly', val);
         $('#genero').attr('readonly', val);
         $('#fecha_nacimiento').attr('readonly', val);
+        $('#organizacion_id').attr('readonly', val);
 
 
 

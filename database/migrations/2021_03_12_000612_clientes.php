@@ -30,7 +30,19 @@ class Clientes extends Migration
             $table->date('fecha_ingreso');
             $table->char('calificacion', 1);
             $table->char('estado', 1);
+            $table->unsignedBigInteger('organizacion_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('organizacion_id')
+                ->nullable()
+                ->references('id')
+                ->on('clientes');
+
+            $table->foreign('user_id')
+                ->nullable()
+                ->references('id')
+                ->on('users');
         });
     }
 

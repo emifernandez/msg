@@ -248,7 +248,21 @@
                                                 @endforeach
                                             </div>
                                         </div>
-                                        
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label>Organizacion</label>
+                                        <select class="form-control" name="organizacion_id" id="organizacion_id">
+                                            <option value="">Seleccione una Organizacion</option>
+                                            @foreach($organizaciones as $key => $organizacion)
+                                                <option value="{{ $organizacion->id }}"
+                                                    @if($organizacion->id == old('organizacion_id')) selected @endif
+                                                    >{{ $organizacion->razon_social }}</option>
+                                            @endforeach
+                                        </select>
+                                        @foreach ($errors->get('organizacion_id') as $error)
+                                            <span class="text text-danger">{{ $error }}</span>
+                                        @endforeach
                                     </div>
                                 </div>
                                 <div class="card-footer">

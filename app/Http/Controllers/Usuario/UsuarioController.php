@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Usuario;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Usuario\StoreUsuarioRequest;
-use App\Http\Requests\Usuario\UpdateUsuarioRequest;
 use App\Models\Rol;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -53,6 +52,7 @@ class UsuarioController extends Controller
         DB::transaction(function () use ($usuario, $request) {
             $usuario->save();
             $usuario->roles()->attach(Rol::where('id', $request->get('rol'))->first());
+            $usuario->sendEmailVerificationNotification();
         });
         toast('Usuario grabado correctamente', 'success');
         return redirect()->route('usuario.index');

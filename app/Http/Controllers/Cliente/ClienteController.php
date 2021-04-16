@@ -6,7 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Cliente\StoreClienteRequest;
 use App\Http\Requests\Cliente\UpdateClienteRequest;
 use App\Models\Cliente;
+use App\Models\Rol;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class ClienteController extends Controller
 {
@@ -40,12 +45,16 @@ class ClienteController extends Controller
         $tipos_documentos = Cliente::TIPO_DOCUMENTO;
         $tipos_clientes = Cliente::TIPO_CLIENTE;
         $generos = Cliente::GENERO;
+        $organizaciones = Cliente::where('tipo_cliente', '2')
+            ->orderBy('razon_social', 'ASC')
+            ->get();
         return view('cliente.create')
             ->with('estados', $estados)
             ->with('calificaciones', $calificaciones)
             ->with('tipos_documentos', $tipos_documentos)
             ->with('tipos_clientes', $tipos_clientes)
-            ->with('generos', $generos);
+            ->with('generos', $generos)
+            ->with('organizaciones', $organizaciones);
     }
 
     /**
@@ -56,10 +65,22 @@ class ClienteController extends Controller
      */
     public function store(StoreClienteRequest $request)
     {
-        $cliente = new Cliente($request->all());
-        $cliente->fecha_ingreso = now();
-        $cliente->estado = 1; //activo
-        $cliente->save();
+        DB::transaction(function () use ($request) {
+            $cliente = new Cliente($request->all());
+            $cliente->fecha_ingreso = now();
+            $cliente->estado = 1; //activo
+            $cliente->save();
+            if ($cliente->tipo_cliente = '1') {
+                $usuario = new User();
+                $usuario->name = $cliente->nombre;
+                $usuario->lastname = $cliente->apellido;
+                $usuario->email = $cliente->email;
+                $usuario->password = Hash::make($usuario->generatePassword());
+                $usuario->save();
+                $usuario->roles()->attach(Rol::where('nombre', 'usuario')->first());
+                $usuario->sendEmailVerificationNotification();
+            }
+        });
         toast('Cliente grabado correctamente', 'success');
         return redirect()->route('cliente.index');
     }
@@ -89,12 +110,16 @@ class ClienteController extends Controller
         $tipos_documentos = Cliente::TIPO_DOCUMENTO;
         $tipos_clientes = Cliente::TIPO_CLIENTE;
         $generos = Cliente::GENERO;
+        $organizaciones = Cliente::where('tipo_cliente', '2')
+            ->orderBy('razon_social', 'ASC')
+            ->get();
         return view('cliente.edit')
             ->with('estados', $estados)
             ->with('calificaciones', $calificaciones)
             ->with('tipos_documentos', $tipos_documentos)
             ->with('tipos_clientes', $tipos_clientes)
             ->with('generos', $generos)
+            ->with('organizaciones', $organizaciones)
             ->with('cliente', $cliente);
     }
 
