@@ -106,6 +106,7 @@ return [
     'classes_auth_body' => '',
     'classes_auth_footer' => '',
     'classes_auth_icon' => '',
+    'classes_ci_icon' => 'fas fa-id-card',
     'classes_auth_btn' => 'btn-flat btn-primary',
 
     /*

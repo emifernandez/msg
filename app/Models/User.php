@@ -14,6 +14,8 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
+    private $pass;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -58,7 +60,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function sendEmailVerificationNotification()
     {
-        $this->notify(new VerifyEmailNotification($this, $this->generatePassword()));
+        $this->notify(new VerifyEmailNotification($this, $this->getPass()));
     }
 
     public function roles()
@@ -145,5 +147,15 @@ class User extends Authenticatable implements MustVerifyEmail
         $arr = explode("@", $this->email, 2);
         $string = $arr[0];
         return substr(md5($string), 10, 10);
+    }
+
+    public function setPass($pass)
+    {
+        $this->pass = $pass;
+    }
+
+    public function getPass()
+    {
+        return isset($this->pass) ? $this->pass : $this->generatePassword();
     }
 }

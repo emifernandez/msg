@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cliente;
 use App\Models\Rol;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
@@ -55,6 +57,9 @@ class RegisterController extends Controller
             'lastname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'numero_documento' => ['required'],
+            'telefono' => ['required'],
+
         ]);
     }
 
@@ -73,6 +78,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
+        $user->setPass($data['password']);
         $user->roles()->attach(Rol::where('nombre', 'usuario')->first());
         return $user;
     }

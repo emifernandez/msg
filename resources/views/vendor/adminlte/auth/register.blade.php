@@ -16,7 +16,21 @@
 @section('auth_body')
     <form action="{{ $register_url }}" method="post">
         {{ csrf_field() }}
-
+        
+        <div class="input-group mb-3">
+            <input type="text" name="numero_documento" class="form-control {{ $errors->has('numero_documento') ? 'is-invalid' : '' }}"
+                   value="{{ old('numero_documento') }}" placeholder="Nro. Documento Identidad" autofocus>
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-id-card"></span>
+                </div>
+            </div>
+            @if($errors->has('numero_documento'))
+                <div class="invalid-feedback">
+                    <strong>{{ $errors->first('numero_documento') }}</strong>
+                </div>
+            @endif
+        </div>
         {{-- Name field --}}
         <div class="input-group mb-3">
             <input type="text" name="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
@@ -47,7 +61,20 @@
                 </div>
             @endif
         </div>
-
+        <div class="input-group mb-3">
+            <input type="text" name="telefono" class="form-control {{ $errors->has('telefono') ? 'is-invalid' : '' }}"
+                   value="{{ old('telefono') }}" placeholder="Telefono" autofocus>
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-phone"></span>
+                </div>
+            </div>
+            @if($errors->has('telefono'))
+                <div class="invalid-feedback">
+                    <strong>{{ $errors->first('telefono') }}</strong>
+                </div>
+            @endif
+        </div>
         {{-- Email field --}}
         <div class="input-group mb-3">
             <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
