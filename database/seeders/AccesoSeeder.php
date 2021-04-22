@@ -70,6 +70,14 @@ class AccesoSeeder extends Seeder
         $acceso->nivel = 2;
         $acceso->save();
         $acceso = new Acceso();
+        $acceso->nombre = 'actividad';
+        $acceso->descripcion = 'Actividades';
+        $acceso->modulo = $menu->id;
+        $acceso->ruta = 'actividad.index';
+        $acceso->icono = 'fas fa-fw fa-child';
+        $acceso->nivel = 2;
+        $acceso->save();
+        $acceso = new Acceso();
         $acceso->nombre = 'tipo-credito';
         $acceso->descripcion = 'Tipos de Crédito';
         $acceso->modulo = $menu->id;

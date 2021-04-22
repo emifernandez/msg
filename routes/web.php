@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Actividad\ActividadController;
 use App\Http\Controllers\Cliente\ClienteController;
 use App\Http\Controllers\Empleado\EmpleadoController;
 use App\Http\Controllers\Ficha\FichaController;
@@ -34,6 +35,7 @@ Auth::routes(['verify' => true]);
 Route::group(['middleware' => ['auth', 'roles']], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+    Route::resource('actividad', ActividadController::class);
     Route::resource('cliente', ClienteController::class);
     Route::resource('empleado', EmpleadoController::class);
     Route::resource('ficha', FichaController::class);

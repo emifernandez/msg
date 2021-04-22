@@ -12,7 +12,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">Crear Salón</h3>
                             </div>
-                            <form role="form" id="form" method="POST" action="{{ route('salon.store') }}">
+                            <form role="form" id="form" method="POST" action="{{ route('salon.store') }}" autocomplete="off">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">

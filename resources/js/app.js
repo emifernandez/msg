@@ -5,8 +5,12 @@
  */
 
 require('./bootstrap');
+require('../../node_modules/moment/dist/moment.js');
 require('../../node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js');
 require('../../node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.js');
+require('../../node_modules/bootstrap-datetime-picker/js/bootstrap-datetimepicker.js');
+require('../../node_modules/jquery-timepicker/jquery.timepicker.js');
+
 window.Vue = require('vue').default;
 window.dt = require('datatables.net');
 
