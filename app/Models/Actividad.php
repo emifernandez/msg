@@ -58,6 +58,11 @@ class Actividad extends Model
         return $this->belongsTo(Servicio::class, 'servicio_id',);
     }
 
+    public function eventos()
+    {
+        return $this->hasMany(Evento::class, 'actividad_id');
+    }
+
     public function setNombreAttribute($nombre)
     {
         $this->attributes['nombre'] = mb_strtolower($nombre, "UTF-8");

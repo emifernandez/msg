@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Actividad;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Actividad\StoreActividadRequest;
+use App\Http\Requests\Actividad\UpdateActividadRequest;
 use App\Models\Actividad;
 use App\Models\Empleado;
 use App\Models\Salon;
@@ -113,7 +114,7 @@ class ActividadController extends Controller
      * @param  \App\Models\Actividad  $actividad
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Actividad $actividad)
+    public function update(UpdateActividadRequest $request, Actividad $actividad)
     {
         $actividad->fill($request->all());
         $this->setDias($actividad, $request);
