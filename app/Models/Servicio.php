@@ -11,10 +11,13 @@ class Servicio extends Model
     protected $table = 'servicios';
     protected $fillable = [
         'descripcion',
-        'precio',
-        'iva'
     ];
     public $timestamps = false;
+
+    public function detalle()
+    {
+        return $this->hasMany(ServicioDetalle::class, 'servicio_id');
+    }
 
     public function setDescripcionAttribute($descripcion)
     {

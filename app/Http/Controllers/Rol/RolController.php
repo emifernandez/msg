@@ -9,7 +9,6 @@ use App\Models\Acceso;
 use App\Models\Rol;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class RolController extends Controller
 {

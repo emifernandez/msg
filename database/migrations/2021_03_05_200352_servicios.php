@@ -16,8 +16,6 @@ class Servicios extends Migration
         Schema::create('servicios', function (Blueprint $table) {
             $table->id();
             $table->string('descripcion');
-            $table->decimal('precio', $precision = 8, $scale = 0);
-            $table->decimal('iva', $precision = 5, $scale = 2);
         });
     }
 

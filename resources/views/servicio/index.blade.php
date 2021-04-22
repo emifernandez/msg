@@ -20,8 +20,6 @@
                 <thead>
                     <tr>
                         <th>Servicio</th>
-                        <th>Precio</th>
-                        <th>% IVA</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -29,8 +27,6 @@
                     @foreach($servicios as $key => $servicio)
                     <tr>
                         <td>{{ $servicio->descripcion }}</td>
-                        <td>{{ $servicio->precio }}</td>
-                        <td>{{ $servicio->iva }}</td>
                         <td style="display: block;  margin: auto;">
                             @can('delete', $servicio)
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$servicio->id}}">

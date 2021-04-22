@@ -5,6 +5,9 @@ $(document).ready(function () {
     $('.addAcceso').on('click', function () {
         addAcceso();
     })
+    $('.addServicio').on('click', function () {
+        addServicio();
+    })
     $("table").on("click", ".eliminar", function () {
         $(this).parent().parent().remove();
     });
@@ -45,6 +48,38 @@ $(document).ready(function () {
                 + '<td class="text-center" valign="center"> <input class="form-check-input" type="checkbox" name="anular[]" value="' + acceso.id + '"> </td>'
                 + '<td><a class="btn btn-danger eliminar" data-toggle="tooltip" title="Eliminar Acceso"><i class="fas fa-trash-alt"></i></a></td>';
             a.value = null;
+        }
+    }
+
+    function addServicio() {
+        var duplicado = false;
+        var cantidad = document.getElementById("cantidad");
+        var precio = document.getElementById("precio");
+        var iva = document.getElementById("iva");
+        var table = document.getElementById("tabla-servicio");
+        var row = table.insertRow(-1);
+        $("tr").each(function () {
+            $this = $(this);
+            var valor = $this.find("input.item").val();
+            console.log(valor);
+            if (valor == cantidad.value) {
+                duplicado = true;
+                Swal.fire({
+                    text: 'Ya existe un detalle con la cantidad asignada ',
+                    toast: true,
+                    icon: 'error',
+                    position: 'top-right'
+                });
+            }
+        });
+        if (!duplicado && cantidad.value && precio.value && iva.value) {
+            row.innerHTML = '<td><input type="text" class="form-control item" name="cantidades[]" readonly value="' + cantidad.value + '"></td>'
+                + '<td><input type="text" class="form-control" name="precios[]" readonly value="' + precio.value + '"></td>'
+                + '<td><input type="text" class="form-control" name="ivas[]" readonly value="' + iva.value + '"></td>'
+                + '<td><a class="btn btn-danger eliminar" data-toggle="tooltip" title="Eliminar detalle"><i class="fas fa-trash-alt"></i></a></td>';
+            cantidad.value = null;
+            precio.value = null;
+            iva.value = null;
         }
     }
 });

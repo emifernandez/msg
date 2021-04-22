@@ -95,6 +95,7 @@
             });
 
             $('.datemask').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' })
+            $('.numericmask').inputmask('9[9][9][9][9][9][9][9][9]', { 'placeholder': '0' })
 
             $('.datepicker').datepicker({
                 format: 'dd-mm-yyyy',

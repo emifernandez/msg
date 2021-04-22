@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Servicio\StoreServicioRequest;
 use App\Http\Requests\Servicio\UpdateServicioRequest;
 use App\Models\Servicio;
+use App\Models\ServicioDetalle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ServicioController extends Controller
 {
@@ -45,10 +47,31 @@ class ServicioController extends Controller
      */
     public function store(StoreServicioRequest $request)
     {
-        $servicio = new Servicio($request->all());
-        $servicio->save();
-        toast('Servicio grabado correctamente', 'success');
-        return redirect()->route('servicio.index');
+        $cantidades = $request->input('cantidades', []);
+        $precios = $request->input('precios', []);
+        $ivas = $request->input('ivas', []);
+        if (count($cantidades) > 0) {
+            DB::transaction(function () use ($request, $cantidades, $precios, $ivas) {
+                $servicio = Servicio::create([
+                    'descripcion' => $request->get('descripcion'),
+                ]);
+                if ($cantidades != 'null') {
+                    foreach ($cantidades as $i => $cantidad) {
+                        $detalle = new ServicioDetalle();
+                        $detalle->servicio_id = $servicio->id;
+                        $detalle->cantidad = $cantidad;
+                        $detalle->precio = $precios[$i];
+                        $detalle->iva = $ivas[$i];
+                        $detalle->save();
+                    }
+                }
+            });
+            toast('Servicio grabado correctamente', 'success');
+            return redirect()->route('servicio.index');
+        } else {
+            toast('Debe ingresar al menos un detalle para grabar el servicio', 'warning');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -84,9 +107,33 @@ class ServicioController extends Controller
     public function update(UpdateServicioRequest $request, Servicio $servicio)
     {
         $servicio->fill($request->all());
-        $servicio->save();
-        toast('Servicio actualizado correctamente', 'success');
-        return redirect()->route('servicio.index');
+        $cantidades = $request->input('cantidades', []);
+        $precios = $request->input('precios', []);
+        $ivas = $request->input('ivas', []);
+        if (count($cantidades) > 0) {
+            DB::transaction(function () use ($servicio, $cantidades, $precios, $ivas) {
+                $detalle = $servicio->detalle()->get();
+                foreach ($detalle as $item) {
+                    $item->delete();
+                }
+                $servicio->save();
+                if ($cantidades != 'null') {
+                    foreach ($cantidades as $i => $cantidad) {
+                        $detalle = new ServicioDetalle();
+                        $detalle->servicio_id = $servicio->id;
+                        $detalle->cantidad = $cantidad;
+                        $detalle->precio = $precios[$i];
+                        $detalle->iva = $ivas[$i];
+                        $detalle->save();
+                    }
+                }
+            });
+            toast('Servicio grabado correctamente', 'success');
+            return redirect()->route('servicio.index');
+        } else {
+            toast('Debe ingresar al menos un detalle para grabar el servicio', 'warning');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -99,6 +146,10 @@ class ServicioController extends Controller
     {
         $this->authorize('delete', new Servicio());
         $servicio = Servicio::findOrFail($request->id);
+        $detalle = $servicio->detalle()->get();
+        foreach ($detalle as $item) {
+            $item->delete();
+        }
         $servicio->delete();
         toast('Servicio eliminado correctamente', 'success');
         return redirect()->route('servicio.index');
