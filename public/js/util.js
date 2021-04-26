@@ -1,4 +1,21 @@
 $(document).ready(function () {
+    new AutoNumeric('#cantidad', {
+        digitGroupSeparator: '.',
+        decimalCharacter: ',',
+        decimalPlaces: '0',
+        minimumValue: '1',
+        overrideMinMaxLimits: 'invalid',
+        unformatOnSubmit: true
+    });
+    new AutoNumeric('#precio', {
+        digitGroupSeparator: '.',
+        decimalCharacter: ',',
+        decimalPlaces: '0',
+        minimumValue: '1',
+        overrideMinMaxLimits: 'invalid',
+        unformatOnSubmit: true
+    });
+
     $('.tabla-simple').DataTable({
         responsive: true,
     });
@@ -61,7 +78,6 @@ $(document).ready(function () {
         $("tr").each(function () {
             $this = $(this);
             var valor = $this.find("input.item").val();
-            console.log(valor);
             if (valor == cantidad.value) {
                 duplicado = true;
                 Swal.fire({
@@ -72,14 +88,23 @@ $(document).ready(function () {
                 });
             }
         });
-        if (!duplicado && cantidad.value && precio.value && iva.value) {
-            row.innerHTML = '<td><input type="text" class="form-control item" name="cantidades[]" readonly value="' + cantidad.value + '"></td>'
-                + '<td><input type="text" class="form-control" name="precios[]" readonly value="' + precio.value + '"></td>'
-                + '<td><input type="text" class="form-control" name="ivas[]" readonly value="' + iva.value + '"></td>'
-                + '<td><a class="btn btn-danger eliminar" data-toggle="tooltip" title="Eliminar detalle"><i class="fas fa-trash-alt"></i></a></td>';
-            cantidad.value = null;
-            precio.value = null;
-            iva.value = null;
+        if (cantidad.value < 1 || precio.value < 1) {
+            Swal.fire({
+                text: 'El precio y la cantidad deben ser mayores a 0',
+                toast: true,
+                icon: 'error',
+                position: 'top-right'
+            });
+        } else {
+            if (!duplicado && cantidad.value && precio.value && iva.value) {
+                row.innerHTML = '<td><input type="text" class="form-control item" name="cantidades[]" readonly value="' + cantidad.value + '"></td>'
+                    + '<td><input type="text" class="form-control" name="precios[]" readonly value="' + precio.value + '"></td>'
+                    + '<td><input type="text" class="form-control" name="ivas[]" readonly value="' + iva.value + '"></td>'
+                    + '<td><a class="btn btn-danger eliminar" data-toggle="tooltip" title="Eliminar detalle"><i class="fas fa-trash-alt"></i></a></td>';
+                cantidad.value = null;
+                precio.value = null;
+                iva.value = null;
+            }
         }
     }
 });

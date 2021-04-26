@@ -15,6 +15,7 @@ try {
     require('bootstrap');
     require("inputmask/dist/jquery.inputmask.js");
     require("inputmask");
+    window.AutoNumeric = require("autonumeric");
 } catch (e) { }
 
 /**

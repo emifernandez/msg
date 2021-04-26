@@ -76,7 +76,10 @@
                                             <div class="form-group">
                                                 <label for="iva">% IVA</label>
                                                 <input class="form-control"
-                                                    type="text"
+                                                    type="number"
+                                                    min="0"
+                                                    max="100"
+                                                    oninput="validity.valid||(value='');"
                                                     name="iva"
                                                     id="iva"
                                                     value="{{ old('iva') }}"

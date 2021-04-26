@@ -37,20 +37,14 @@
                                                 <thead>
                                                     <tr>
                                                         <th>
-                                                            <input class="form-control"
-                                                                type="number"
-                                                                min="1"
-                                                                oninput="validity.valid||(value='');"
+                                                            <input type="text" class="form-control"
                                                                 name="cantidad"
                                                                 id="cantidad"
                                                                 value="{{ old('cantidad') }}"
                                                                 placeholder="Cantidad">
                                                         </th>
                                                         <th>
-                                                            <input class="form-control"
-                                                                type="number"
-                                                                min="1"
-                                                                oninput="validity.valid||(value='');"
+                                                            <input type="text" class="form-control"
                                                                 name="precio"
                                                                 id="precio"
                                                                 value="{{ old('precio') }}"
@@ -62,12 +56,11 @@
                                                                 min="0"
                                                                 max="100"
                                                                 oninput="validity.valid||(value='');"
-                                                                name="iva"
                                                                 id="iva"
                                                                 value="{{ old('iva') }}"
                                                                 placeholder="% IVA">
                                                         </th>
-                                                        <th style="horizontal-align: middle; display: block; margin: auto;">
+                                                        <th>
                                                             <a class="btn btn-info addServicio" data-toggle="tooltip" title="Agregar Acceso">
                                                                 <i class="fas fa-plus"></i>
                                                             </a>

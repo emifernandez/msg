@@ -39,9 +39,7 @@
                                                     <tr>
                                                         <th>
                                                             <input class="form-control"
-                                                                type="number"
-                                                                min="1"
-                                                                oninput="validity.valid||(value='');"
+                                                                type="text"
                                                                 name="cantidad"
                                                                 id="cantidad"
                                                                 value="{{ old('cantidad') }}"
@@ -49,9 +47,7 @@
                                                         </th>
                                                         <th>
                                                             <input class="form-control"
-                                                                type="number"
-                                                                min="1"
-                                                                oninput="validity.valid||(value='');"
+                                                                type="text"
                                                                 name="precio"
                                                                 id="precio"
                                                                 value="{{ old('precio') }}"
