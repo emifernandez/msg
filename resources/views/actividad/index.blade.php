@@ -36,7 +36,15 @@
                         <td>{{ $actividad->servicio->descripcion }}</td>
                         <td>{{ $actividad->empleado->nombre . ' ' .  $actividad->empleado->apellido}}</td>
                         <td>{{ $actividad->salon->nombre }}</td>
-                        <td>{{ $actividad->getDias() }}</td>
+                        <td>
+                            <span @if($actividad->dias[0] == '1') class="badge badge-success" @else class="badge" @endif>D </span>
+                            <span @if($actividad->dias[1] == '1') class="badge badge-success" @else class="badge" @endif>L </span>
+                            <span @if($actividad->dias[2] == '1') class="badge badge-success" @else class="badge" @endif>M </span>
+                            <span @if($actividad->dias[3] == '1') class="badge badge-success" @else class="badge" @endif>M </span>
+                            <span @if($actividad->dias[4] == '1') class="badge badge-success" @else class="badge" @endif>J </span>
+                            <span @if($actividad->dias[5] == '1') class="badge badge-success" @else class="badge" @endif>V </span>
+                            <span @if($actividad->dias[6] == '1') class="badge badge-success" @else class="badge" @endif>S </span>
+                        </td>
                         <td>{{ $actividad->hora_inicio->forFormHour() . ' a ' . $actividad->hora_fin->forFormHour() }}</td>
                         <td>{{ $estados[$actividad->estado] }}</td>
                         <td style="display: block;  margin: auto;">

@@ -108,7 +108,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Días Disponibles</label>
-                                                <table class="table table-borderless" style="width: 100%">
+                                                <table class="table table-borderless table-sm table-responsive" style="width: 100%">
                                                     <thead>
                                                         <tr>
                                                             <th>
