@@ -112,13 +112,12 @@
                 scrollbar: true
             });
 
-            
-            // $('.autonumeric').autoNumeric("init", {
-            //     aSep: '.',
-            //     aDec: ',',
-            //     vMin: '0',
-            //     unSetOnSubmit: true
-            // });
+            $(document).ready(function() {
+                $('.select').select2({
+                    width: 'resolve',
+                    theme: "bootstrap"
+                });
+            });
         });
     </script>
 @stop

@@ -12,7 +12,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">Editar Empleado</h3>
                             </div>
-                            <form role="form" id="form" method="POST" action="{{ route('empleado.update', $empleado->id) }}">
+                            <form role="form" id="form" method="POST" action="{{ route('empleado.update', $empleado->id) }}" autocomplete="off">
                                 @method('PATCH')
                                 @csrf
                                 <div class="card-body">
@@ -39,7 +39,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control" readonly
+                                                    <input type="text" class="form-control datepicker" readonly
                                                     data-inputmask-alias="datetime"
                                                     data-inputmask-inputformat="dd-mm-yyyy"
                                                     data-mask
@@ -157,7 +157,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control datemask"
+                                                    <input type="text" class="form-control datepicker"
                                                     data-inputmask-alias="datetime"
                                                     data-inputmask-inputformat="dd-mm-yyyy"
                                                     data-mask

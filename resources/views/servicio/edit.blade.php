@@ -64,7 +64,7 @@
                                                                 value="{{ old('iva') }}"
                                                                 placeholder="% IVA">
                                                         </th>
-                                                        <th style="horizontal-align: middle; display: block; margin: auto;">
+                                                        <th style="horizontal-align: middle; margin: auto;">
                                                             <a class="btn btn-info addServicio" data-toggle="tooltip" title="Agregar Acceso">
                                                                 <i class="fas fa-plus"></i>
                                                             </a>

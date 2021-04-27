@@ -12,7 +12,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">Crear Empleado</h3>
                             </div>
-                            <form role="form" id="form" method="POST" action="{{ route('empleado.store') }}">
+                            <form role="form" id="form" method="POST" action="{{ route('empleado.store') }}" autocomplete="off">
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
@@ -158,7 +158,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control datemask"
+                                                    <input type="text" class="form-control datepicker"
                                                     data-inputmask-alias="datetime"
                                                     data-inputmask-inputformat="dd-mm-yyyy"
                                                     data-mask

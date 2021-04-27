@@ -41,4 +41,9 @@ class ServicioDetalle extends Model
     {
         return number_format($cantidad, 0, ',', '.');
     }
+
+    public function getIvaAttribute($iva)
+    {
+        return number_format($iva, 0, ',', '.');
+    }
 }

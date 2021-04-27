@@ -1,21 +1,4 @@
 $(document).ready(function () {
-    new AutoNumeric('#cantidad', {
-        digitGroupSeparator: '.',
-        decimalCharacter: ',',
-        decimalPlaces: '0',
-        minimumValue: '1',
-        overrideMinMaxLimits: 'invalid',
-        unformatOnSubmit: true
-    });
-    new AutoNumeric('#precio', {
-        digitGroupSeparator: '.',
-        decimalCharacter: ',',
-        decimalPlaces: '0',
-        minimumValue: '1',
-        overrideMinMaxLimits: 'invalid',
-        unformatOnSubmit: true
-    });
-
     $('.tabla-simple').DataTable({
         responsive: true,
     });
@@ -68,6 +51,27 @@ $(document).ready(function () {
         }
     }
 
+    if ($("#cantidad").length) {
+        new AutoNumeric('#cantidad', {
+            digitGroupSeparator: '.',
+            decimalCharacter: ',',
+            decimalPlaces: '0',
+            minimumValue: '1',
+            overrideMinMaxLimits: 'invalid',
+            unformatOnSubmit: true
+        });
+    }
+
+    if ($("#precio").length) {
+        new AutoNumeric('#precio', {
+            digitGroupSeparator: '.',
+            decimalCharacter: ',',
+            decimalPlaces: '0',
+            minimumValue: '1',
+            overrideMinMaxLimits: 'invalid',
+            unformatOnSubmit: true
+        });
+    }
     function addServicio() {
         var duplicado = false;
         var cantidad = document.getElementById("cantidad");

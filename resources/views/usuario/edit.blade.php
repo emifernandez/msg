@@ -54,7 +54,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Rol</label>
-                                        <select class="form-control" name="rol" id="rol">
+                                        <select class="form-control select" style="width: 100%" name="rol" id="rol">
                                             <option value="">Seleccione un rol</option>
                                             @foreach($roles as $key => $rol)
                                                 <option value="{{ $rol->id }}"

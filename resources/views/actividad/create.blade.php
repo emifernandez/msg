@@ -107,7 +107,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Días Disponibles</label>
-                                                <table class="table table-borderless" style="width: 100%">
+                                                <table class="table table-borderless table-sm table-responsive" style="width: 100%">
                                                     <thead>
                                                         <tr>
                                                             <th>
@@ -189,7 +189,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Empleado</label>
-                                        <select class="form-control" name="empleado_id" id="empleado_id">
+                                        <select class="form-control select" style="width: 100%" name="empleado_id" id="empleado_id">
                                             <option value="">Seleccione un Empleado</option>
                                             @foreach($empleados as $key => $empleado)
                                                 <option value="{{ $empleado->id }}"
@@ -205,7 +205,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Servicio</label>
-                                                <select class="form-control" name="servicio_id" id="servicio_id">
+                                                <select class="form-control select" style="width: 100%" name="servicio_id" id="servicio_id">
                                                     <option value="">Seleccione un servicio</option>
                                                     @foreach($servicios as $key => $servicio)
                                                         <option value="{{ $servicio->id }}"
@@ -221,7 +221,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Salón</label>
-                                                <select class="form-control" name="salon_id" id="salon_id">
+                                                <select class="form-control select" style="width: 100%" name="salon_id" id="salon_id">
                                                     <option value="">Seleccione un salón</option>
                                                     @foreach($salones as $key => $salon)
                                                         <option value="{{ $salon->id }}"

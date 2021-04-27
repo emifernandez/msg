@@ -61,7 +61,7 @@
                                                                 placeholder="% IVA">
                                                         </th>
                                                         <th>
-                                                            <a class="btn btn-info addServicio" data-toggle="tooltip" title="Agregar Acceso">
+                                                            <a style="horizontal-align: middle; margin: auto;" class="btn btn-info addServicio" data-toggle="tooltip" title="Agregar Acceso">
                                                                 <i class="fas fa-plus"></i>
                                                             </a>
                                                         </th>

@@ -50,9 +50,9 @@
                                                 <thead>
                                                     <tr>
                                                         <th style="display:none;">Acceso</td>
-                                                        <th>
+                                                        <th class="col-sm-6">
                                                             <div class="input-group ">
-                                                                <select class="form-control" name="acceso" id="acceso">
+                                                                <select class="form-control select" style="width: 100%" name="acceso" id="acceso">
                                                                     <option value=null>Seleccione un Acceso</option>
                                                                     @foreach($accesos as $key => $acceso)
                                                                         <option value="{{ $acceso }}"
@@ -83,7 +83,7 @@
                                                         <th class="text-center" valign="center">
                                                             <label class="form-check-label" for="anular">Anular</label>
                                                         </th>
-                                                        <th style="horizontal-align: middle; display: block; margin: auto;">
+                                                        <th style="horizontal-align: middle; margin: auto;">
                                                             <a class="btn btn-info addAcceso" data-toggle="tooltip" title="Agregar Acceso">
                                                                 <i class="fas fa-plus"></i>
                                                             </a>
