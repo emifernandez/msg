@@ -248,3 +248,24 @@
 	</div>
 </div>
 @stop
+@section('js')
+<script>
+    $(document).ready(function () {
+        $("#fecha_inicio").on('change', function(event) {
+            if(this.value.length > 0) {
+                var fecha_inicio = new Date(this.value);
+                var fecha_actual = new Date();
+                fecha_actual.setHours(0, 0, 0, 0);
+                fecha_actual.setFullYear(fecha_actual.getFullYear() + -1);
+                if(fecha_inicio < fecha_actual) {
+                    Swal.fire({
+                        title: 'Fecha muy antigua',
+                        text: 'La fecha seleccionada corresponde a un año anterior. Para mejorar el rendimiento le recomendamos seleccionar una fecha más reciente',
+                        icon: 'warning',
+                    });
+                }
+            }
+        });
+    });
+</script>
+@endsection
