@@ -10,6 +10,7 @@ use App\Models\Empleado;
 use App\Models\Salon;
 use App\Models\Servicio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ActividadController extends Controller
 {
@@ -64,9 +65,14 @@ class ActividadController extends Controller
         $actividad = new Actividad($request->all());
         $actividad->estado = '1'; //activo
         $this->setDias($actividad, $request);
-        $actividad->save();
-        toast('Actividad grabada correctamente', 'success');
-        return redirect()->route('actividad.index');
+        if ($this->checkDuplicados($actividad)) {
+            $actividad->save();
+            toast('Actividad grabada correctamente', 'success');
+            return redirect()->route('actividad.index');
+        } else {
+            alert('Actividad Duplicada', 'El salón y/o empleado seleccionado ya se encuentra ocupado para el rango de fechas seleccionado', 'warning');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -118,9 +124,14 @@ class ActividadController extends Controller
     {
         $actividad->fill($request->all());
         $this->setDias($actividad, $request);
-        $actividad->save();
-        toast('Actividad actualizada correctamente', 'success');
-        return redirect()->route('actividad.index');
+        if ($this->checkDuplicados($actividad)) {
+            $actividad->save();
+            toast('Actividad actualizada correctamente', 'success');
+            return redirect()->route('actividad.index');
+        } else {
+            alert('Actividad Duplicada', 'El salón y/o empleado seleccionado ya se encuentra ocupado para el rango de fechas seleccionado', 'warning');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -148,5 +159,24 @@ class ActividadController extends Controller
         $viernes = $request->viernes != null ? '1' : '0';
         $sabado = $request->sabado != null ? '1' : '0';
         return $actividad->dias = $domingo . $lunes . $martes . $miercoles . $jueves . $viernes . $sabado;
+    }
+
+    private function checkDuplicados($actividad)
+    {
+        $duplicados = DB::table('actividades')
+            ->select(DB::raw('count(*) as duplicados'))
+            ->whereRaw('(salon_id = ' . $actividad->salon_id . ' OR empleado_id = ' . $actividad->empleado_id . ')
+                AND ((fecha_fin IS NULL AND fecha_inicio' . (!empty($actividad->fecha_fin->forString()) ? (' BETWEEN \'' . $actividad->fecha_inicio->forString() . '\' and \'' . $actividad->fecha_fin->forString() . '\'') : (' <= \'' . $actividad->fecha_inicio->forString() . '\' ')) . ')
+                    OR (\'' . $actividad->fecha_inicio->forString() . '\' BETWEEN fecha_inicio and fecha_fin' . (!empty($actividad->fecha_fin->forString()) ? (' OR \'' . $actividad->fecha_fin->forString() . '\' BETWEEN fecha_inicio and fecha_fin))') : ')) ') . '
+                AND ((\'' . $actividad->hora_inicio->forStringHour() . '\' BETWEEN hora_inicio and hora_fin) OR (\'' . $actividad->hora_fin->forStringHour() . '\' BETWEEN hora_inicio and hora_fin))
+                AND (substr(\'' . $actividad->dias . '\', 1, 1) = substr(dias, 1, 1)
+                    OR substr(\'' . $actividad->dias . '\', 2, 1) = substr(dias, 2, 1)
+                    OR substr(\'' . $actividad->dias . '\', 3, 1) = substr(dias, 3, 1)
+                    OR substr(\'' . $actividad->dias . '\', 4, 1) = substr(dias, 4, 1)
+                    OR substr(\'' . $actividad->dias . '\', 5, 1) = substr(dias, 5, 1)
+                    OR substr(\'' . $actividad->dias . '\', 6, 1) = substr(dias, 6, 1)
+                    OR substr(\'' . $actividad->dias . '\', 7, 1) = substr(dias, 7, 1)) ' . (isset($actividad->id) ? (' AND id <> ' . $actividad->id) : ''))
+            ->get();
+        return 0 == (isset($duplicados) ? $duplicados[0]->duplicados : 0);
     }
 }

@@ -29,7 +29,7 @@ class DateFormatter
 
     public function forString()
     {
-        return $this->date == null ? '' : $this->date->format('Y-m-');
+        return $this->date == null ? '' : $this->date->format('Y-m-d');
     }
 
     public function forFormDateHour()
@@ -40,6 +40,11 @@ class DateFormatter
     public function forFormHour()
     {
         return $this->date == null ? '' : $this->date->format('H:i');
+    }
+
+    public function forStringHour()
+    {
+        return $this->date == null ? '' : $this->date->format('H:i:s');
     }
 
     public function getWeekDay()
