@@ -32,8 +32,14 @@ class Evento extends Model
         return $this->belongsTo(Actividad::class, 'actividad_id');
     }
 
+    public function reservas()
+    {
+        return $this->hasMany(Reserva::class, 'evento_id');
+    }
+
     public function getFechaAttribute($fecha)
     {
-        return new DateFormatter($fecha);
+        $f = new DateFormatter($fecha);
+        return $f->forForm();
     }
 }

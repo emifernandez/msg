@@ -45,7 +45,7 @@
                                                     data-mask
                                                     name="fecha"
                                                     id="fecha"
-                                                    value="{{ old('fecha', $evento->fecha->forForm()) }}">
+                                                    value="{{ old('fecha', $evento->fecha) }}">
                                                 </div>
                                                 @foreach ($errors->get('fecha') as $error)
                                                     <span class="text text-danger">{{ $error }}</span>

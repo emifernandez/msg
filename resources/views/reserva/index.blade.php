@@ -1,8 +1,8 @@
 @extends('adminlte::page')
-@section('title', 'Eventos')
+@section('title', 'Reservas')
 
 @section('content_header')
-    <h1>Eventos</h1>
+    <h1>Reservas</h1>
 @stop
 
 @section('content')
@@ -11,7 +11,7 @@
 <div class="panel panel-default">
     <div style="margin: 10px;" class="panel-heading">
         @can('create', $aux)
-        <a  href="{{route('evento.create')}}" class="btn btn-primary">Nuevo Evento</a>
+        <a  href="{{route('reserva.create')}}" class="btn btn-primary">Nueva Reserva</a>
         @endcan
     </div>
     <div class="panel-body">
@@ -19,28 +19,30 @@
             <table width="100%" class="table table-striped table-bordered table-hover" id="tabla">
                 <thead>
                     <tr>
+                        <th>Cliente</th>
+                        <th>Evento</th>
                         <th>Fecha</th>
-                        <th>Actividad</th>
-                        <th>Lugares Disponibles</th>
+                        <th>Horario</th>
                         <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($eventos as $key => $evento)
+                    @foreach($reservas as $key => $reserva)
                     <tr>
-                        <td>{{ $evento->fecha}}</td>
-                        <td>{{ $evento->actividad->nombre }}</td>
-                        <td>{{ $evento->lugares_disponibles }}</td>
-                        <td>{{ $estados[$evento->estado] }}</td>
+                        <td>{{ $reserva->cliente->nombre . ' ' . $reserva->cliente->apellido }}</td>
+                        <td>{{ $reserva->evento->actividad->nombre }}</td>
+                        <td>{{ $reserva->evento->fecha }}</td>
+                        <td>{{ $reserva->evento->actividad->hora_inicio->forFormHour() . ' - ' .  $reserva->evento->actividad->hora_fin->forFormHour()}}</td>
+                        <td>{{ $estados[$reserva->estado] }}</td>
                         <td style="display: block;  margin: auto;">
-                            @can('delete', $evento)
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$evento->id}}">
-                                <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                            @can('delete', $reserva)
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$reserva->id}}"
+                                @if($reserva->estado <> '1')
+                                    disabled
+                                @endif>
+                                <i class="fas fa-ban" aria-hidden="true"></i> Cancelar
                             </button>
-                            @endcan
-                            @can('update', $evento)
-                            <a href="{{ route('evento.edit', $evento->id) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
                             @endcan
                         </td>
                     </tr>
@@ -54,20 +56,20 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header bg-danger">
-          <h4 class="modal-title">Eliminar Evento</h4>
+          <h4 class="modal-title">Cancelar Reserva</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="{{ route('evento.destroy', 'test')}}" method="post">
+        <form action="{{ route('reserva.destroy', 'test')}}" method="post">
             @csrf
             @method('DELETE')
             <div class="modal-body">
-            <p>¿Esta seguro que desea eliminar el registro?</p>
+            <p>¿Esta seguro que desea cancelar la reserva?</p>
             <input type="hidden" id="id" name="id" value="">
             </div>
             <div class="modal-footer justify-content-between">
-                <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt" aria-hidden="true"></i> Eliminar</button>
+                <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt" aria-hidden="true"></i> Cancelar</button>
             </div>
         </form>
       </div>

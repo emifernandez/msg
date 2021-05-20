@@ -81,6 +81,11 @@ class Cliente extends Model
         return $this->hasMany(Ficha::class, 'cliente_id',);
     }
 
+    public function reservas()
+    {
+        return $this->hasMany(Reserva::class, 'cliente_id');
+    }
+
     public function setNombreAttribute($nombre)
     {
         $this->attributes['nombre'] = mb_strtolower($nombre, "UTF-8");

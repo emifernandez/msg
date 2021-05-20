@@ -78,6 +78,14 @@ class AccesoSeeder extends Seeder
         $acceso->nivel = 2;
         $acceso->save();
         $acceso = new Acceso();
+        $acceso->nombre = 'reserva';
+        $acceso->descripcion = 'Reservas';
+        $acceso->modulo = $menu->id;
+        $acceso->ruta = 'reserva.index';
+        $acceso->icono = 'fas fa-fw fa-user-clock';
+        $acceso->nivel = 2;
+        $acceso->save();
+        $acceso = new Acceso();
         $acceso->nombre = 'evento';
         $acceso->descripcion = 'Eventos';
         $acceso->modulo = $menu->id;
