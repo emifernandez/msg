@@ -62,6 +62,58 @@ $(document).ready(function () {
         });
     }
 
+    if ($("#precio_compra").length) {
+        new AutoNumeric('#precio_compra', {
+            digitGroupSeparator: '.',
+            decimalCharacter: ',',
+            decimalPlaces: '0',
+            minimumValue: '1',
+            overrideMinMaxLimits: 'invalid',
+            unformatOnSubmit: true
+        });
+    }
+
+    if ($("#precio_venta").length) {
+        new AutoNumeric('#precio_venta', {
+            digitGroupSeparator: '.',
+            decimalCharacter: ',',
+            decimalPlaces: '0',
+            minimumValue: '1',
+            overrideMinMaxLimits: 'invalid',
+            unformatOnSubmit: true
+        });
+    }
+
+    if ($("#cantidad_actual").length) {
+        new AutoNumeric('#cantidad_actual', {
+            digitGroupSeparator: '.',
+            decimalCharacter: ',',
+            decimalPlaces: '2',
+            overrideMinMaxLimits: 'invalid',
+            unformatOnSubmit: true
+        });
+    }
+
+    if ($("#cantidad_minima").length) {
+        new AutoNumeric('#cantidad_minima', {
+            digitGroupSeparator: '.',
+            decimalCharacter: ',',
+            decimalPlaces: '2',
+            overrideMinMaxLimits: 'invalid',
+            unformatOnSubmit: true
+        });
+    }
+
+    if ($("#cantidad_maxima").length) {
+        new AutoNumeric('#cantidad_maxima', {
+            digitGroupSeparator: '.',
+            decimalCharacter: ',',
+            decimalPlaces: '2',
+            overrideMinMaxLimits: 'invalid',
+            unformatOnSubmit: true
+        });
+    }
+
     if ($("#precio").length) {
         new AutoNumeric('#precio', {
             digitGroupSeparator: '.',

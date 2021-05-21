@@ -141,6 +141,14 @@ class AccesoSeeder extends Seeder
         $acceso->icono = 'fas fa-fw fa-box';
         $acceso->nivel = 2;
         $acceso->save();
+        $acceso = new Acceso();
+        $acceso->nombre = 'stock';
+        $acceso->descripcion = 'Stock';
+        $acceso->modulo = $menu->id;
+        $acceso->ruta = 'stock.index';
+        $acceso->icono = 'fas fa-fw fa-cubes';
+        $acceso->nivel = 2;
+        $acceso->save();
 
         /*******************************************************/
         $menu = new Acceso();

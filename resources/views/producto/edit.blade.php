@@ -12,7 +12,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">Editar Producto</h3>
                             </div>
-                            <form role="form" id="form" method="POST" action="{{ route('producto.update', $producto->id) }}">
+                            <form role="form" id="form" method="POST" action="{{ route('producto.update', $producto->id) }}" autocomplete="off">
                                 @method('PATCH')
                                 @csrf
                                 <div class="card-body">
@@ -90,7 +90,7 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Grupo</label>
-                                                <select class="form-control" name="grupo_id" id="grupo_id">
+                                                <select class="form-control select" name="grupo_id" id="grupo_id" style="width: 100%">
                                                     <option value="">Seleccione un grupo</option>
                                                     @foreach($grupos as $key => $grupo)
                                                         <option value="{{ $grupo->id }}"
@@ -108,7 +108,7 @@
                                         <div class="col-sm-8">
                                             <div class="form-group">
                                                 <label>Marca</label>
-                                                <select class="form-control" name="marca_id" id="marca_id">
+                                                <select class="form-control select" name="marca_id" id="marca_id" style="width: 100%">
                                                     <option value="">Seleccione una marca</option>
                                                     @foreach($marcas as $key => $marca)
                                                         <option value="{{ $marca->id }}"
@@ -124,7 +124,7 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Unidad de Medida</label>
-                                                <select class="form-control" name="unidad_id" id="unidad_id">
+                                                <select class="form-control select" name="unidad_id" id="unidad_id" style="width: 100%">
                                                     <option value="">Seleccione una unidad de medida</option>
                                                     @foreach($unidades as $key => $unidad)
                                                         <option value="{{ $unidad->id }}"

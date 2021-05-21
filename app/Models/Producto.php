@@ -50,4 +50,9 @@ class Producto extends Model
     {
         return $this->belongsTo(Grupo::class, 'grupo_id');
     }
+
+    public function stock()
+    {
+        return $this->hasMany(Stock::class, 'producto_id');
+    }
 }
