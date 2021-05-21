@@ -54,6 +54,7 @@
                                                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                                     </div>
                                                     <input type="text" class="form-control"
+                                                    onkeydown="return false"
                                                     name="fecha_inicio"
                                                     id="fecha_inicio"
                                                     value="{{ old('fecha_inicio') }}">
@@ -71,6 +72,7 @@
                                                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                                     </div>
                                                     <input type="text" class="form-control"
+                                                    onkeydown="return false"
                                                     name="fecha_fin"
                                                     id="fecha_fin"
                                                     value="{{ old('fecha_fin') }}">
@@ -179,7 +181,7 @@
                 }
             })
         }
-
+        var container=$('.container-fluid form').length>0 ? $('.container-fluid form').parent() : "body";
         $("#actividad_id").on('change', function(event) {
             $('#fecha_inicio').val('');
             $('#fecha_fin').val('');
@@ -189,17 +191,24 @@
                 const actividad_id = parseInt(data[0]);
                 var startDate = new Date();
                 startDate.setDate(startDate.getDate() + 1);
+                
                 $('#fecha_inicio').datepicker({
                     format: 'dd-mm-yyyy',
-                    orientation: "bottom right",
+                    orientation: "bottom left",
                     autoclose: true,
-                    startDate: startDate
+                    startDate: startDate,
+                    container: container,
+                    clearBtn: true,
+                    language: 'es'
                 });
                 $('#fecha_fin').datepicker({
                     format: 'dd-mm-yyyy',
-                    orientation: "bottom right",
+                    orientation: "bottom left",
                     autoclose: true,
-                    startDate: startDate
+                    startDate: startDate,
+                    container: container,
+                    clearBtn: true,
+                    language: 'es'
                 });
                 ff = data[1].split('-');
                 if(ff.length == 3) {

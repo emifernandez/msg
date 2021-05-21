@@ -93,15 +93,38 @@
                     }
                 },
             });
-
+            var fecha = new Date(new Date().getFullYear(), 0, 1);
+            fecha.setFullYear(fecha.getFullYear() - 100);
             $('.datemask').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' })
-            // $('.numericmask').inputmask('9[9][9][9][9][9][9][9][9]', { 'placeholder': '0' })
+            ;(function($){
+                $.fn.datepicker.dates['es'] = {
+                    days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+                    daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+                    daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+                    months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                    monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                    today: "Hoy",
+                    monthsTitle: "Meses",
+                    clear: "Borrar",
+                    weekStart: 1,
+                    format: "dd/mm/yyyy"
+                };
+            }(jQuery));
 
+            var container=$('.container-fluid form').length>0 ? $('.container-fluid form').parent() : "body";
             $('.datepicker').datepicker({
                 format: 'dd-mm-yyyy',
-                orientation: "bottom right",
+                orientation: "bottom left",
                 todayHighlight: true,
                 autoclose: true,
+                container: container,
+                startDate: fecha,
+                clearBtn: true,
+                language: 'es'
+            });
+
+            $('.datepicker').keydown(function() {
+                return false;
             });
 
             $('.timepicker').timepicker({
@@ -109,7 +132,8 @@
                 interval: 15,
                 dynamic: false,
                 dropdown: true,
-                scrollbar: true
+                scrollbar: true,
+                clearBtn: true
             });
 
             $(document).ready(function() {

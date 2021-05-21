@@ -28,7 +28,7 @@
                 <tbody>
                     @foreach($fichas as $key => $ficha)
                     <tr>
-                        <td>{{ $ficha->cliente->nombre . ' ' . $ficha->cliente->nombre}}</td>
+                        <td>{{ $ficha->cliente->nombre . ' ' . $ficha->cliente->apellido}}</td>
                         <td>{{ $ficha->altura }}</td>
                         <td>{{ $ficha->peso }}</td>
                         <td style="display: block;  margin: auto;">

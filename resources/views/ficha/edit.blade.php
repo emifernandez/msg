@@ -12,7 +12,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">Editar Ficha Cliente</h3>
                             </div>
-                            <form role="form" id="form" method="POST" action="{{ route('ficha.update', $ficha->id) }}">
+                            <form role="form" id="form" method="POST" action="{{ route('ficha.update', $ficha->id) }}" autocomplete="off">
                                 @method('PATCH')
                                 @csrf
                                 <div class="card-body">
