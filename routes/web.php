@@ -16,6 +16,7 @@ use App\Http\Controllers\Servicio\ServicioController;
 use App\Http\Controllers\Stock\StockController;
 use App\Http\Controllers\TipoCredito\TipoCreditoController;
 use App\Http\Controllers\UnidadMedida\UnidadMedidaController;
+use App\Http\Controllers\Facturacion\VentaController;
 use App\Http\Controllers\Usuario\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
@@ -54,7 +55,9 @@ Route::group(['middleware' => ['auth', 'roles']], function () {
     Route::resource('stock', StockController::class);
     Route::resource('tipo-credito', TipoCreditoController::class);
     Route::resource('unidad', UnidadMedidaController::class);
+    Route::resource('venta', VentaController::class);
     Route::resource('usuario', UsuarioController::class);
 
     Route::post('/getEventos', [App\Http\Controllers\Reserva\ReservaController::class, 'getEventos'])->name('getEventos');
+    Route::post('/getCliente', [App\Http\Controllers\Facturacion\VentaController::class, 'getCliente'])->name('getCliente');
 });

@@ -152,6 +152,22 @@ class AccesoSeeder extends Seeder
 
         /*******************************************************/
         $menu = new Acceso();
+        $menu->nombre = 'facturacion';
+        $menu->descripcion = 'Facturacion';
+        $menu->icono = 'fas fa-fw fa-hand-holding-usd';
+        $menu->nivel = 1;
+        $menu->save();
+        $acceso = new Acceso();
+        $acceso->nombre = 'venta';
+        $acceso->descripcion = 'Ventas';
+        $acceso->modulo = $menu->id;
+        $acceso->ruta = 'venta.index';
+        $acceso->icono = 'fas fa-fw fa-file-invoice-dollar';
+        $acceso->nivel = 2;
+        $acceso->save();
+
+        /*******************************************************/
+        $menu = new Acceso();
         $menu->nombre = 'parametros';
         $menu->descripcion = 'Parámetros';
         $menu->icono = 'fas fa-fw fa-th-large';

@@ -57,7 +57,7 @@ class createEventos extends Command
         DB::transaction(function () use ($actividades, $eventos) {
             $isDuplicated = false;
             if ($actividades->count() > 0) {
-                for ($i = 0; $i <= 30; $i++) {
+                for ($i = 0; $i <= 365; $i++) {
                     $fecha = $this->generarDia($i);
                     foreach ($actividades as $actividad) {
                         foreach ($eventos as $key => $evento) {
