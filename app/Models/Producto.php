@@ -55,4 +55,9 @@ class Producto extends Model
     {
         return $this->hasMany(Stock::class, 'producto_id');
     }
+
+    public function ventas()
+    {
+        return $this->belongsToMany(Venta::class)->using(VentaDetalleProducto::class);
+    }
 }

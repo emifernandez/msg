@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 @section('title', 'Reservas')
 @section('meta_tags')
-<meta name="csrf-token" content="{{ csrf_token() }}"
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('content')
 <div class="row">

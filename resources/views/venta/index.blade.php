@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 @section('title', 'Ventas')
 @section('meta_tags')
-<meta name="csrf-token" content="{{ csrf_token() }}"
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('content')
 <div class="row">
@@ -14,13 +14,13 @@
                             <div class="card-header">
                                 <h3 class="card-title">Cargar Venta</h3>
                             </div>
-                            <form role="form" id="form" method="POST" action="{{ route('venta.store') }}" autocomplete="off">
+                            <form role="form" id="form" method="POST" action="{{ route('venta.store') }}" autocomplete="off"  onSubmit="return checkform()">
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <div class="form-group">
-                                                <label for="fecha_ingreso">Fecha</label>
+                                                <label for="fecha">Fecha</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
@@ -30,11 +30,11 @@
                                                     data-inputmask-alias="datetime"
                                                     data-inputmask-inputformat="dd-mm-yyyy"
                                                     data-mask
-                                                    name="fecha_ingreso"
-                                                    id="fecha_ingreso"
+                                                    name="fecha"
+                                                    id="fecha"
                                                     value="{{ old('fecha_ingreso', $todayDate = date("d-m-Y")) }}">
                                                 </div>
-                                                @foreach ($errors->get('fecha_ingreso') as $error)
+                                                @foreach ($errors->get('fecha') as $error)
                                                     <span class="text text-danger">{{ $error }}</span>
                                                 @endforeach
                                             </div>
@@ -58,6 +58,25 @@
                                                 @endforeach
                                             </div>
                                         </div>
+
+                                        <div class="col-sm-6" id="content-factura">
+                                            <div class="form-group inline">
+                                                <label for="numero_factura">Factura</label>
+                                                <input class="form-control col-sm-6" readonly
+                                                    type="text"
+                                                    name="prefijo_factura"
+                                                    id="prefijo_factura"
+                                                    value="{{ $general->prefijo_factura . '-' . $nro_factura }}">
+                                                <input type="hidden"
+                                                    name="numero_factura"
+                                                    id="numero_factura"
+                                                    value="{{ $nro_factura }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        
+                                        
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label>Forma Pago</label>
@@ -146,11 +165,57 @@
 
                                     <div class="row no-print">
                                         <div class="col-12">
-                                            <button type="button" class="btn btn-info float-right"><i class="fa fa-box"></i> Agregar Productos
+                                            <button type="button" class="btn btn-info float-right" id="showProducto"> Agregar Productos <i class="fas fa-fw fa-angle-right"></i>
                                             </button>
-                                            <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                                                <i class="fas fa-calendar-check"></i> Agregar Servicios
-                                            </button>
+                                            <a href="{{ route('reserva.create') }}" target="_blank" class= "btn btn-primary float-right" style="margin-right: 5px;">Agregar Reservas <i class="fas fa-fw fa-calendar-plus"></i></a>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" id="content-productos" style="display: none">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="codigo_barra">Codigo</label>
+                                                <input class="form-control"
+                                                    type="text"
+                                                    name="codigo_barra"
+                                                    id="codigo_barra"
+                                                    value="{{ old('codigo_barra') }}"
+                                                    placeholder="Cod. Barra">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5" >
+                                            <div class="form-group">
+                                                <label>Producto</label>
+                                                <select class="form-control select" name="producto_id" id="producto_id" style="width: 100%">
+                                                    <option value="">Seleccione un producto</option>
+                                                    @foreach($stock as $key => $producto)
+                                                        <option value="{{ $producto->id . '-' . $producto->producto_id }}"
+                                                            @if($producto->producto->id == old('producto_id')) selected @endif
+                                                            >{{ $producto->producto->nombre }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @foreach ($errors->get('producto_id') as $error)
+                                                    <span class="text text-danger">{{ $error }}</span>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="producto_cantidad">Cantidad</label>
+                                                <input class="form-control"
+                                                    type="number"
+                                                    min="1"
+                                                    oninput="validity.valid||(value='');"
+                                                    name="producto_cantidad"
+                                                    id="producto_cantidad"
+                                                    value="{{ old('producto_cantidad') }}"
+                                                    placeholder="Cantidad">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <a style="margin-top: 40%; width:40px" class="form-control btn btn-info" id="addProducto" data-toggle="tooltip" title="Agregar Producto">
+                                                <i class="fas fa-plus"></i>
+                                            </a>
                                         </div>
                                     </div>
 
@@ -167,7 +232,7 @@
                                                     <th class="text-center" style="width: 1%"></th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="body">
                                             </tbody>
                                           </table>
                                         </div>
@@ -183,16 +248,21 @@
                                           <div class="table-responsive">
                                             <table class="table table-sm">
                                               <tr>
-                                                <th>IVA (10%)</th>
-                                                <td id="total-iva-10">Gs. 0</td>
+                                                <th>IVA Gs. (10%)</th>
+                                                <td><input type="text" id="total-iva-10" name="total_iva10" readonly class="form-control" value="0"></td>
                                               </tr>
                                               <tr>
-                                                <th>IVA (5%)</th>
-                                                <td id="total-iva-5">Gs. 0</td>
+                                                <th>IVA Gs. (5%)</th>
+                                                <td><input type="text" id="total-iva-5" name="total_iva5" readonly class="form-control" value="0"></td>
                                               </tr>
                                               <tr>
-                                                <th>Total:</th>
-                                                <td id="total">Gs. 0</td>
+                                                <th>IVA Gs. (0%)</th>
+                                                <td><input type="text" id="total-iva-0" name="total_iva0" readonly class="form-control" value="0"></td>
+                                              </tr>
+                                              <tr>
+                                              <tr>
+                                                <th>Total Gs.:</th>
+                                                <td><input type="text" id="total" name="total" readonly class="form-control" value="0"></td>
                                               </tr>
                                             </table>
                                           </div>
@@ -200,7 +270,7 @@
                                         <!-- /.col -->
                                       </div>
                                 <div class="card-footer">
-                                    <button type="submit" formnovalidate class="btn btn-success"><i class="fas fa-file-invoice-dollar"></i> Grabar e Imprimir</button>
+                                    <button type="submit" formnovalidate class="btn btn-success" id="grabar"><i class="fas fa-file-invoice-dollar"></i> Grabar e Imprimir</button>
                                     <a href="{{ route('home') }}" class="btn btn-secondary btn-close">Cancelar</a>
                                 </div>
                             </form>

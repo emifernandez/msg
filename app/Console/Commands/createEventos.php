@@ -15,14 +15,14 @@ class createEventos extends Command
      *
      * @var string
      */
-    protected $signature = 'month:evento';
+    protected $signature = 'evento:year';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Crea Eventos basados en las Actividades activas para los siguientes 30 dias';
+    protected $description = 'Crea Eventos basados en las Actividades activas para los siguientes 365 dias';
 
     /**
      * Create a new command instance.

@@ -20,8 +20,8 @@ class Stock extends Migration
             $table->decimal('cantidad_actual', $precision = 12, $scale = 2);
             $table->decimal('cantidad_minima', $precision = 12, $scale = 2);
             $table->decimal('cantidad_maxima', $precision = 12, $scale = 2)->nullable();
-            $table->decimal('precio_compra', $precision = 12, $scale = 0);
-            $table->decimal('precio_venta', $precision = 12, $scale = 0);
+            $table->decimal('precio_compra', $precision = 10, $scale = 0);
+            $table->decimal('precio_venta', $precision = 10, $scale = 0);
             $table->timestamps();
 
             $table->foreign('producto_id')

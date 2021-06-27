@@ -174,6 +174,14 @@ class AccesoSeeder extends Seeder
         $menu->nivel = 1;
         $menu->save();
         $acceso = new Acceso();
+        $acceso->nombre = 'general';
+        $acceso->descripcion = 'Datos Generales';
+        $acceso->modulo = $menu->id;
+        $acceso->ruta = 'general.index';
+        $acceso->icono = 'fas fa-fw fa-info-circle';
+        $acceso->nivel = 2;
+        $acceso->save();
+        $acceso = new Acceso();
         $acceso->nombre = 'marca';
         $acceso->descripcion = 'Marcas';
         $acceso->modulo = $menu->id;
