@@ -143,11 +143,12 @@ class ReservaController extends Controller
     public function getEventos(Request $request)
     {
         if (isset($request->fecha_inicio) && isset($request->fecha_fin) && isset($request->actividad_id)) {
-            $eventos = Evento::whereBetween('fecha', ['\'' . $request->fecha_inicio . '\'', '\'' . $request->fecha_fin . '\''])
-                ->where('actividad_id', $request->actividad_id)
-                ->where('estado', '1') //activos
-                ->where('lugares_disponibles', '>', 0)
-                ->get();
+
+            $eventos = Evento::whereRaw('fecha between \'' . $request->fecha_inicio . '\' and \'' . $request->fecha_fin . '\'
+            and actividad_id = ' . $request->actividad_id . '
+            and estado = \'1\'
+            and lugares_disponibles > 0
+            and id not in (select evento_id from reservas where cliente_id = ' . $request->cliente_id . ' and (estado = \'1\' or estado = \'2\'))')->get();
             $data['data'] = $eventos;
             echo json_encode($data);
         }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Facturacion;
 
+use App\Formatters\DateFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Venta\StoreVentaRequest;
 use App\Models\Actividad;
@@ -24,6 +25,11 @@ class VentaController extends Controller
      */
     public function index()
     {
+        // $general = DatosGenerales::all()->first();
+        // $fecha = new DateFormatter(now());
+        // return view('venta.reporte.factura')
+        //     ->with('general', $general)
+        //     ->with('fecha', $fecha);
         $aux = new Venta();
         $this->authorize('create', $aux);
         $datos_generales = DatosGenerales::all();
@@ -35,7 +41,7 @@ class VentaController extends Controller
                 return redirect()->back();
             } else {
                 if ($general->nro_factura_hasta >= $nro_factura && ($general->nro_factura_hasta - $nro_factura) < 10) {
-                    alert('Facturación', 'Sólo quedan ' . $general->nro_factura_hasta - $nro_factura . ' facturas en el talonario', 'warning');
+                    alert('Facturación', 'Sólo quedan ' . ($general->nro_factura_hasta - $nro_factura) . ' facturas en el talonario', 'warning');
                 }
                 $tipo_comprobantes = Venta::TIPO_COMPROBANTE;
                 $forma_pagos = Venta::FORMA_PAGO;
