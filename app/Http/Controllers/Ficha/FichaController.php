@@ -7,6 +7,7 @@ use App\Http\Requests\Ficha\StoreFichaRequest;
 use App\Http\Requests\Ficha\UpdateFichaRequest;
 use App\Models\Cliente;
 use App\Models\Ficha;
+use App\Models\DatosGenerales;
 use Illuminate\Http\Request;
 
 class FichaController extends Controller
@@ -117,5 +118,19 @@ class FichaController extends Controller
         $ficha->delete();
         toast('Ficha eliminada correctamente', 'success');
         return redirect()->route('ficha.index');
+    }
+
+    public function printFicha($id)
+    {
+        $general = DatosGenerales::all()->first();
+        $cliente = Cliente::find($id);
+        $fichas = Collect([]);
+        if (isset($cliente)) {
+            $fichas = Ficha::where('cliente_id', $id)->get();
+        }
+        return view('ficha.reportes.ficha')
+            ->with('general', $general)
+            ->with('cliente', $cliente)
+            ->with('fichas', $fichas);
     }
 }
