@@ -32,7 +32,7 @@
                                                     data-mask
                                                     name="fecha"
                                                     id="fecha"
-                                                    value="{{ old('fecha_ingreso', $todayDate = date("d-m-Y")) }}">
+                                                    value="{{ old('fecha', $todayDate = date("d-m-Y")) }}">
                                                 </div>
                                                 @foreach ($errors->get('fecha') as $error)
                                                     <span class="text text-danger">{{ $error }}</span>

@@ -64,6 +64,12 @@ Route::group(['middleware' => ['auth', 'roles']], function () {
     Route::post('/getCliente', [App\Http\Controllers\Facturacion\VentaController::class, 'getCliente'])->name('getCliente');
     Route::post('/getStock', [App\Http\Controllers\Facturacion\VentaController::class, 'getStock'])->name('getStock');
 
+
+    Route::get('reporte-venta', [App\Http\Controllers\Facturacion\VentaController::class, 'reporteVenta'])->name('venta.reporte');
+    Route::get('reporte-venta-producto', [App\Http\Controllers\Facturacion\VentaController::class, 'reporteVentaProducto'])->name('venta.producto.reporte');
+
     Route::get('print-ficha/{id}', [App\Http\Controllers\Ficha\FichaController::class, 'printFicha'])->name('printFicha');
     Route::get('print-venta/{id}', [App\Http\Controllers\Facturacion\VentaController::class, 'printFactura'])->name('printFactura');
+    Route::post('print-venta', [App\Http\Controllers\Facturacion\VentaController::class, 'getReporteVenta'])->name('getReporteVenta');
+    Route::post('print-venta-producto', [App\Http\Controllers\Facturacion\VentaController::class, 'getReporteVentaProducto'])->name('getReporteVentaProducto');
 });

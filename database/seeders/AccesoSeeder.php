@@ -168,6 +168,30 @@ class AccesoSeeder extends Seeder
 
         /*******************************************************/
         $menu = new Acceso();
+        $menu->nombre = 'reporte';
+        $menu->descripcion = 'Reportes';
+        $menu->icono = 'fas fa-fw fa-file-contract';
+        $menu->nivel = 1;
+        $menu->save();
+        $acceso = new Acceso();
+        $acceso->nombre = 'venta-reporte';
+        $acceso->descripcion = 'Reporte de Ventas';
+        $acceso->modulo = $menu->id;
+        $acceso->ruta = 'venta.reporte';
+        $acceso->icono = 'fas fa-fw fa-print';
+        $acceso->nivel = 2;
+        $acceso->save();
+        $acceso = new Acceso();
+        $acceso->nombre = 'venta-producto-reporte';
+        $acceso->descripcion = 'Reporte de Productos Vendidos';
+        $acceso->modulo = $menu->id;
+        $acceso->ruta = 'venta.producto.reporte';
+        $acceso->icono = 'fas fa-fw fa-print';
+        $acceso->nivel = 2;
+        $acceso->save();
+
+        /*******************************************************/
+        $menu = new Acceso();
         $menu->nombre = 'parametros';
         $menu->descripcion = 'Parámetros';
         $menu->icono = 'fas fa-fw fa-th-large';

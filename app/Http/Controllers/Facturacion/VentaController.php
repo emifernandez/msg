@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Facturacion;
 
 use App\Formatters\DateFormatter;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Venta\ReporteVentaRequest;
 use App\Http\Requests\Venta\StoreVentaRequest;
 use App\Models\Actividad;
 use App\Models\Cliente;
@@ -27,7 +28,6 @@ class VentaController extends Controller
      */
     public function index()
     {
-        $this->printFactura(10);
         $aux = new Venta();
         $this->authorize('create', $aux);
         $datos_generales = DatosGenerales::all();
@@ -350,5 +350,97 @@ class VentaController extends Controller
             ->with('medio_pago', $medio_pago)
             ->with('total_letras', $total_letras)
             ->with('fecha', $fecha);
+    }
+
+    public function reporteVenta()
+    {
+        $estados = Venta::ESTADO;
+        $tipos_comprobantes = Venta::TIPO_COMPROBANTE;
+        return view('venta.reporte-venta')
+            ->with('estados', $estados)
+            ->with('tipos_comprobantes', $tipos_comprobantes);
+    }
+
+    public function reporteVentaProducto()
+    {
+        return view('producto.reporte-producto');
+    }
+
+    public function getReporteVenta(ReporteVentaRequest $request)
+    {
+        $fecha_inicio = new DateFormatter($request->fecha_inicio);
+        $fecha_fin = new DateFormatter($request->fecha_fin);
+        $general = DatosGenerales::all()->first();
+        $estados = Venta::ESTADO;
+        $tipos = Venta::TIPO_COMPROBANTE;
+        $estado = $request->estado == '0' ? 'Todos' : $estados[$request->estado];
+        $tipo_comprobante = $request->tipo_comprobante == '0' ? 'Todos' : $tipos[$request->tipo_comprobante];
+        $data = DB::select(DB::raw(
+            'select ventas.id,
+                fecha,
+                prefijo_factura,
+                total,
+                tipo_comprobante,
+                ventas.estado,
+                forma_pago,
+                medio_pago,
+                clientes.razon_social,
+                clientes.ruc,
+                clientes.numero_documento
+            from ventas
+                inner join clientes on ventas.cliente_id = clientes.id
+            where fecha::date between \'' . $fecha_inicio->forString() . '\' and \'' . $fecha_fin->forString() . '\'
+            and (ventas.estado = \'' . $request->estado . '\' or \'0\' = \'' . $request->estado . '\')
+            and (tipo_comprobante = \'' . $request->tipo_comprobante . '\' or \'0\' = \'' . $request->tipo_comprobante . '\')'
+        ));
+        $total_general = 0;
+        foreach ($data as $key => $item) {
+            $total_general += $item->total;
+        }
+        return view('venta.reporte.ventas')
+            ->with('general', $general)
+            ->with('data', $data)
+            ->with('estados', $estados)
+            ->with('tipos', $tipos)
+            ->with('fecha_inicio', $fecha_inicio)
+            ->with('fecha_fin', $fecha_fin)
+            ->with('estado', $estado)
+            ->with('tipo_comprobante', $tipo_comprobante)
+            ->with('total_general', $total_general);
+    }
+
+    public function getReporteVentaProducto(ReporteVentaRequest $request)
+    {
+        $fecha_inicio = new DateFormatter($request->fecha_inicio);
+        $fecha_fin = new DateFormatter($request->fecha_fin);
+        $general = DatosGenerales::all()->first();
+        $data = DB::select(DB::raw(
+            'select
+                ventas.fecha::date,
+                producto_id,
+                descripcion,
+                precio,
+                sum(cantidad) as cantidad,
+                sum(subtotal) as total
+            from ventas_detalles_productos
+                inner join ventas on ventas.id = ventas_detalles_productos.venta_id
+            where ventas.fecha::date between \'' . $fecha_inicio->forString() . '\' and \'' . $fecha_fin->forString() . '\'
+            and ventas.estado = \'1\'
+            group by ventas.fecha::date,
+                producto_id,
+                descripcion,
+                precio
+            order by fecha,descripcion'
+        ));
+        $total_general = 0;
+        foreach ($data as $key => $item) {
+            $total_general += $item->total;
+        }
+        return view('venta.reporte.productos')
+            ->with('general', $general)
+            ->with('data', $data)
+            ->with('fecha_inicio', $fecha_inicio)
+            ->with('fecha_fin', $fecha_fin)
+            ->with('total_general', $total_general);
     }
 }

@@ -80,49 +80,54 @@ body{
                     <hr>
                     <div class="row">
                         <div class="col-md-12">
-                            <h3 class="text-center">FICHA DEL CLIENTE</h3>
-                            <br>
-                            <div class="row">
-                                <div class="col-6">
-                                    <address style="padding: 10px">
-                                        <strong>Nombre: </strong>{{$cliente->nombre . ' ' . $cliente->apellido}}<br>
-                                        <strong>Razon Social: </strong>{{$cliente->razon_social}}<br>
-                                        
-                                        <strong>Dirección: </strong>{{$cliente->direccion}}<br>
-                                        <strong>Teléfono: </strong>{{$cliente->telefono}}<br>
-                                        <strong>Email: </strong>{{$cliente->email}}<br>
-                                    </address>
-                                </div>
-                                <div class="col-6 text-left">
-                                    <address>
-                                        <strong>Documento: </strong>{{$cliente->numero_documento}}<br>
-                                        <strong>Ruc: </strong>{{$cliente->ruc}}<br>
-                                        <strong>Fecha Nacimiento: </strong>{{$cliente->fecha_nacimiento->forForm()}}<br>
-                                    </address>
-                                </div>
-                            </div>
-                            
+                            <h3 class="text-center">REPORTE DE PRODUCTOS VENDIDOS</h3>
+                            <table style="width: 100%">
+                                <tr>
+                                    <td>
+                                        <th style="width: 5%">Desde</th>
+                                        <td>{{$fecha_inicio->forForm()}}</td>
+                                    </td>
+                                    <td>
+                                        <th style="width: 5%">Hasta</th>
+                                        <td>{{$fecha_fin->forForm()}}</td>
+                                    </td>
+                                </tr>
+                            </table>
+                            <hr>
                             <table class="table table-striped">
                                 <thead>
                                     <tr class="line">
-                                        <td class="text-center"><strong>Altura</strong></td>
-                                        <td class="text-center"><strong>Peso</strong></td>
-                                        <td class="text-center"><strong>Alergias</strong></td>
-                                        <td class="text-center"><strong>Antecedentes Médicos</strong></td>
+                                        <td class="text-center" style="width: 20%"><strong>Fecha</strong></td>
+                                        <td class="text-center" style="width: 10%"><strong>Codigo</strong></td>
+                                        <td class="text-center"><strong>Descripción</strong></td>
+                                        <td class="text-center" style="width: 10%"><strong>Precio</strong></td>
+                                        <td class="text-center" style="width: 10%"><strong>Cantidad</strong></td>
+                                        <td class="text-right" style="width: 15%"><strong>Total</strong></td>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($fichas as $i => $ficha)
+                                    @foreach ($data as $item)
                                     <tr>
-                                        <td class="text-center">{{$ficha->altura}}</td>
-                                        <td class="text-center">{{$ficha->peso}}</td>
-                                        <td class="text-left">{{$ficha->alegia}}</td>
-                                        <td class="text-left">{{$ficha->antecedente_medico}}</td>
+                                        <td class="text-center">{{$item->fecha}}</td>
+                                        <td class="text-center">{{isset($item->codigo_barra) ? $item->codigo_barra : ''}}</td>
+                                        <td>{{$item->descripcion}}</td>
+                                        <td class="text-center">{{number_format($item->precio,'0',',','.')}}</td>
+                                        <td class="text-center">{{number_format($item->cantidad,'0',',','.')}}</td>
+                                        <td class="text-right">{{number_format($item->total,'0',',','.')}}</td>
                                     </tr>
                                     @endforeach
+                                    <tr>
+                                        <td colspan="4">
+                                        </td><td class="text-right"><strong>Cant. Registros</strong></td>
+                                        <td class="text-right"><strong>{{count($data)}}</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                        </td><td class="text-right"><strong>Total</strong></td>
+                                        <td class="text-right"><strong>Gs. {{number_format($total_general,'0',',','.')}}</strong></td>
+                                    </tr>
                                 </tbody>
                             </table>
-
                         </div>									
                     </div>
                     <hr>
@@ -134,7 +139,6 @@ body{
                 </div>
             </div>
         </div>
-        <!-- END INVOICE -->
     </div>
     </section>
 </div>
