@@ -65,4 +65,5 @@ Route::group(['middleware' => ['auth', 'roles']], function () {
     Route::post('/getStock', [App\Http\Controllers\Facturacion\VentaController::class, 'getStock'])->name('getStock');
 
     Route::get('print-ficha/{id}', [App\Http\Controllers\Ficha\FichaController::class, 'printFicha'])->name('printFicha');
+    Route::get('print-venta/{id}', [App\Http\Controllers\Facturacion\VentaController::class, 'printFactura'])->name('printFactura');
 });

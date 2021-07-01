@@ -50,7 +50,7 @@
                             <a href="{{ route('ficha.show', $cliente->id) }}" class= "btn btn-info" data-toggle="tooltip" data-placement="top" title="Ficha Cliente"><i class="fas fa-id-card"></i></a>
                             @endif
                             @if($cliente->tipo_cliente == 1)
-                            <a href="{{ route('printFicha', $cliente->id) }}" class= "btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Imprimir Ficha"><i class="fas fa-print"></i></a>
+                            <a href="{{ route('printFicha', $cliente->id) }}" target="_blank" class= "btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Imprimir Ficha"><i class="fas fa-print"></i></a>
                             @endif
                         </td>
                     </tr>

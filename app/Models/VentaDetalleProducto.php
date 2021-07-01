@@ -21,6 +21,8 @@ class VentaDetalleProducto extends Pivot
         'monto_iva',
         'iva',
         'subtotal',
+        'descripcion',
+        'codigo_barra',
     ];
     public $timestamps = false;
 

@@ -34,6 +34,17 @@ class Reserva extends Model
 
     public function ventas()
     {
-        return $this->belongsToMany(Venta::class)->using(VentaDetalleReserva::class);
+        return $this->belongsToMany(Venta::class, 'ventas_detalles_reservas')
+            ->using(VentaDetalleReserva::class)
+            ->withPivot(
+                'cantidad',
+                'precio',
+                'descuento',
+                'monto_iva',
+                'iva',
+                'subtotal',
+                'descripcion',
+                'codigo_barra',
+            );
     }
 }

@@ -58,6 +58,17 @@ class Producto extends Model
 
     public function ventas()
     {
-        return $this->belongsToMany(Venta::class)->using(VentaDetalleProducto::class);
+        return $this->belongsToMany(Venta::class)
+            ->using(VentaDetalleProducto::class)
+            ->withPivot(
+                'cantidad',
+                'precio',
+                'descuento',
+                'monto_iva',
+                'iva',
+                'subtotal',
+                'descripcion',
+                'codigo_barra',
+            );
     }
 }

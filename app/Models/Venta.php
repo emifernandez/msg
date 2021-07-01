@@ -52,11 +52,33 @@ class Venta extends Model
 
     public function reservas()
     {
-        return $this->belongsToMany(Reserva::class, 'ventas_detalles_reservas')->using(VentaDetalleReserva::class);
+        return $this->belongsToMany(Reserva::class, 'ventas_detalles_reservas')
+            ->using(VentaDetalleReserva::class)
+            ->withPivot(
+                'cantidad',
+                'precio',
+                'descuento',
+                'monto_iva',
+                'iva',
+                'subtotal',
+                'descripcion',
+                'codigo_barra',
+            );
     }
 
     public function productos()
     {
-        return $this->belongsToMany(Producto::class, 'ventas_detalles_productos')->using(VentaDetalleProducto::class);
+        return $this->belongsToMany(Producto::class, 'ventas_detalles_productos')
+            ->using(VentaDetalleProducto::class)
+            ->withPivot(
+                'cantidad',
+                'precio',
+                'descuento',
+                'monto_iva',
+                'iva',
+                'subtotal',
+                'descripcion',
+                'codigo_barra',
+            );
     }
 }

@@ -15,9 +15,11 @@ use App\Models\ServicioDetalle;
 use App\Models\Venta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Traits\Helpers;
 
 class VentaController extends Controller
 {
+    private $venta_id = null;
     /**
      * Display a listing of the resource.
      *
@@ -25,11 +27,7 @@ class VentaController extends Controller
      */
     public function index()
     {
-        // $general = DatosGenerales::all()->first();
-        // $fecha = new DateFormatter(now());
-        // return view('venta.reporte.factura')
-        //     ->with('general', $general)
-        //     ->with('fecha', $fecha);
+        $this->printFactura(10);
         $aux = new Venta();
         $this->authorize('create', $aux);
         $datos_generales = DatosGenerales::all();
@@ -91,8 +89,10 @@ class VentaController extends Controller
         $precios = $request->input('precio', []);
         $ivas = $request->input('iva', []);
         $tipos = $request->input('tipo', []);
+        $codigos = $request->input('codigos', []);
+        $descripciones = $request->input('descripciones', []);
         if (count($ids) > 0) {
-            DB::transaction(function () use ($request, $ids, $cantidades, $precios, $ivas, $tipos) {
+            DB::transaction(function () use ($request, $ids, $cantidades, $precios, $ivas, $tipos, $codigos, $descripciones) {
                 //SE GRABA CABECERA VENTA
                 $venta = new Venta();
                 $venta->fecha = now();
@@ -116,13 +116,15 @@ class VentaController extends Controller
                 $venta->medio_pago = $request->medio_pago;
                 $venta->user_id = auth()->user()->id;
                 $venta->save();
-
+                $this->venta_id = $venta->id;
                 //SE GRABA DETALLE VENTA
                 foreach ($ids as $i => $id) {
                     $precio = (int)str_replace('.', '', explode('-', $precios[$i])[2]);
                     $iva = (float)explode('-', $ivas[$i])[0];
                     $monto_iva = (int)explode('-', $ivas[$i])[1];
                     $cantidad = (int)$cantidades[$i];
+                    $descripcion = $descripciones[$i];
+                    $codigo_barra = $codigos[$i];
                     //DETALLE VENTA DE TIPO RESERVAS
                     if ($tipos[$i] == 'reserva') {
                         $reservas = DB::select(DB::raw(
@@ -144,6 +146,8 @@ class VentaController extends Controller
                                     'monto_iva' => round($iva == 10 ? $precio / 11 : ($iva == 5 ? $precio / 22 : 0)),
                                     'iva' => $iva,
                                     'subtotal' => ($precio),
+                                    'descripcion' => $descripcion,
+                                    'codigo_barra' => $codigo_barra
                                 ]);
                                 //SE ACTUALIZA ESTADO DE RESERVAS A PAGADO
                                 $r = Reserva::find($reserva->id);
@@ -164,6 +168,8 @@ class VentaController extends Controller
                             'monto_iva' => $monto_iva,
                             'iva' => $iva,
                             'subtotal' => ($cantidad * $precio),
+                            'descripcion' => $descripcion,
+                            'codigo_barra' => $codigo_barra
                         ]);
                         //SE ACTUALIZA EL STOCK
                         $stock = Stock::find($stock_id);
@@ -173,7 +179,8 @@ class VentaController extends Controller
                 }
             });
             toast('Venta grabada correctamente', 'success');
-            return redirect()->route('venta.index');
+            echo "<script>window.open('" . route('printFactura', $this->venta_id) . "', '_blank');</script>";
+            echo "<script>window.location.assign('" . route('venta.index') . "');</script>";
         } else {
             toast('Debe ingresar al menos un detalle para grabar la venta', 'warning');
             return redirect()->back();
@@ -284,5 +291,64 @@ class VentaController extends Controller
             echo json_encode($data);
         }
         exit;
+    }
+
+    public function printFactura($id)
+    {
+        $venta = array_values(DB::select(DB::raw(
+            'select
+            ventas.id,
+            fecha,
+            prefijo_factura,
+            total,
+            total_iva0,
+            total_iva5,
+            total_iva10,
+            tipo_comprobante,
+            forma_pago,
+            medio_pago,
+            clientes.razon_social,
+            clientes.ruc,
+            clientes.numero_documento,
+            clientes.direccion,
+			clientes.telefono
+        from ventas
+            inner join clientes on ventas.cliente_id = clientes.id
+        where ventas.id = ' . $id . ' limit 1'
+        )))[0];
+
+        $detalle = DB::select(DB::raw(
+            'select 
+            cantidad,
+            codigo_barra,
+            descripcion,
+            precio,
+            iva
+        from ventas_detalles_productos
+        where venta_id = ' . $id . '
+        union all
+        select 
+            count(id) as cantidad,
+            codigo_barra,
+            descripcion,
+            precio,
+            iva
+        from ventas_detalles_reservas
+        where venta_id = ' . $id . '
+        group by descripcion, codigo_barra, precio, iva'
+        ));
+        $general = DatosGenerales::all()->first();
+        $medio_pago = Venta::MEDIO_PAGO;
+        $forma_pago = Venta::FORMA_PAGO;
+        $total_letras = Helpers::convertir($venta->total, 'guaraníes');
+        $fecha = new DateFormatter($venta->fecha);
+        return view('venta.reporte.factura')
+            ->with('general', $general)
+            ->with('venta', $venta)
+            ->with('detalle', $detalle)
+            ->with('forma_pago', $forma_pago)
+            ->with('medio_pago', $medio_pago)
+            ->with('total_letras', $total_letras)
+            ->with('fecha', $fecha);
     }
 }

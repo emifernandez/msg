@@ -170,8 +170,8 @@ $(document).ready(function () {
                                 '<td style="display:none;"><input type="text" class="form-control id" name="ids[]" readonly value="' + codigo + '"></td>' +
                                 '<td style="display:none;"><input type="text" class="form-control" name="tipo[]" readonly value="reserva"></td>' +
                                 '<td class="text-right"><input type="number" class="form-control form-control-sm text-right cantidad" min="1" max="' + cantidad + '" oninput="validity.valid||(value=\'\');" name="cantidad[]" value="' + cantidad + '" /></td>' +
-                                '<td class="text-center">' + codigo + '</td>' +
-                                '<td>' + descripcion + '</td>' +
+                                '<td class="text-center"><input type="text" class="form-control form-control-sm " name="codigos[]" readonly value="' + codigo + '"/></td>' +
+                                '<td><input type="text" class="form-control form-control-sm " name="descripciones[]" readonly value="' + descripcion + '"/></td>' +
                                 '<td style="display:none;"><input type="text" class="form-control iva" name="iva[]" value="' + (precios.length > 0 ? getIva(precios[0].iva, (cantidad * precio_unitario)) : 0) + '"></td>' +
                                 '<td class="text-right precio_unitario">' + generarSelectPrecio(precios) + '</td>' +
                                 '<td class="text-right"><input type="text" disabled class="form-control form-control-sm text-right subtotal" min="1" name="subtotal[]" value="' + formatMiles(cantidad * precio_unitario) + '" /></td>' +
@@ -217,11 +217,11 @@ $(document).ready(function () {
                                 '<td style="display:none;"><input type="text" class="form-control id" name="ids[]" readonly value="' + producto.stock_id + '-' + producto.producto_id + '"></td>' +
                                 '<td style="display:none;"><input type="text" class="form-control tipo" name="tipo[]" readonly value="producto"></td>' +
                                 '<td class="text-right"><input type="number" min="1" max="' + producto.cantidad_actual + '" oninput="validity.valid||(value=\'\');" class="form-control form-control-sm text-right cantidad" min="1" name="cantidad[]" value="' + cantidad + '" /></td>' +
-                                '<td class="text-center">' + producto.codigo_barra + '</td>' +
-                                '<td>' + producto.nombre + '</td>' +
+                                '<td class="text-center"><input type="text" class="form-control form-control-sm " name="codigos[]" readonly value="' + producto.codigo_barra + '"/></td>' +
+                                '<td><input type="text" class="form-control form-control-sm " name="descripciones[]" readonly value="' + producto.nombre + '"/></td>' +
                                 '<td style="display:none;"><input type="text" class="form-control iva" name="iva[]" value="' + (getIva(Number(producto.iva).toString(), (producto.precio_venta))) + '"></td>' +
                                 '<td class="text-right precio_unitario">' + generarSelectPrecio(precios) + '</td>' +
-                                '<td class="text-right"><input type="text" readonly class="form-control form-control-sm text-right subtotal" min="1" name="subtotal[]" value="' + formatMiles(producto.precio_venta) + '" /></td>' +
+                                '<td class="text-right"><input type="text" readonly class="form-control form-control-sm text-right subtotal" min="1" name="subtotal[]" value="' + formatMiles(producto.precio_venta * cantidad) + '" /></td>' +
                                 '<td class="text-center"><button class="btn btn-danger btn-sm eliminar" data-toggle="tooltip" data-placement="top" title="Eliminar detalle"><i class="fas fa-trash-alt"></i></button></td>' +
                                 '</tr>';
                             $('#detalle tbody').append(tr_str);
