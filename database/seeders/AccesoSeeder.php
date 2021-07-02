@@ -165,6 +165,14 @@ class AccesoSeeder extends Seeder
         $acceso->icono = 'fas fa-fw fa-file-invoice-dollar';
         $acceso->nivel = 2;
         $acceso->save();
+        $acceso = new Acceso();
+        $acceso->nombre = 'anulacion';
+        $acceso->descripcion = 'Anular Venta';
+        $acceso->modulo = $menu->id;
+        $acceso->ruta = 'venta.create';
+        $acceso->icono = 'fas fa-fw fa-window-close';
+        $acceso->nivel = 2;
+        $acceso->save();
 
         /*******************************************************/
         $menu = new Acceso();
