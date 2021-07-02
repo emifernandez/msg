@@ -65,6 +65,7 @@ Route::group(['middleware' => ['auth', 'roles']], function () {
 Route::post('/getEventos', [App\Http\Controllers\Reserva\ReservaController::class, 'getEventos'])->name('getEventos');
 Route::post('/getCliente', [App\Http\Controllers\Facturacion\VentaController::class, 'getCliente'])->name('getCliente');
 Route::post('/getStock', [App\Http\Controllers\Facturacion\VentaController::class, 'getStock'])->name('getStock');
+Route::post('/getVenta', [App\Http\Controllers\Facturacion\VentaController::class, 'getVenta'])->name('getVenta');
 
 Route::get('reporte-venta', [App\Http\Controllers\Facturacion\VentaController::class, 'reporteVenta'])->name('venta.reporte');
 Route::get('reporte-venta-producto', [App\Http\Controllers\Facturacion\VentaController::class, 'reporteVentaProducto'])->name('venta.producto.reporte');

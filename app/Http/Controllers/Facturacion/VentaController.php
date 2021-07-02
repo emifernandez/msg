@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Facturacion;
 
 use App\Formatters\DateFormatter;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Venta\AnularVentaRequest;
 use App\Http\Requests\Venta\ReporteVentaRequest;
 use App\Http\Requests\Venta\StoreVentaRequest;
 use App\Models\Actividad;
@@ -72,7 +73,7 @@ class VentaController extends Controller
      */
     public function create()
     {
-        //
+        return view('venta.anulacion');
     }
 
     /**
@@ -227,9 +228,24 @@ class VentaController extends Controller
      * @param  \App\Models\Venta  $venta
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Venta $venta)
+    public function destroy(AnularVentaRequest $request)
     {
-        //
+        $venta = Venta::find($request->venta_id);
+        DB::transaction(function () use ($venta) {
+            $venta->estado = '2'; //anulado;
+            $venta->save();
+            foreach ($venta->productos as $producto) {
+                $stock = Stock::where('producto_id', $producto->id)->get()->first();
+                $stock->cantidad_actual += $producto->pivot->cantidad;
+                $stock->save();
+            }
+            foreach ($venta->reservas as $reserva) {
+                $reserva->estado = '1'; //reservado
+                $reserva->save();
+            }
+        });
+        toast('Venta anulada correctamente', 'success');
+        return redirect()->route('home');
     }
 
     public function getCliente(Request $request)
@@ -288,6 +304,21 @@ class VentaController extends Controller
                 where productos.' . $request->campo . ' = ' . $valor
             ));
             $data['stock'] = $stock;
+            echo json_encode($data);
+        }
+        exit;
+    }
+
+    public function getVenta(Request $request)
+    {
+        if (isset($request->venta_id)) {
+            $venta = Venta::find($request->venta_id);
+            if (isset($venta)) {
+                $tipos_comprobantes = Venta::TIPO_COMPROBANTE;
+                $venta->tipo_comprobante = $tipos_comprobantes[$venta->tipo_comprobante];
+                $venta->cliente = Cliente::find($venta->cliente_id);
+            }
+            $data['venta'] = $venta;
             echo json_encode($data);
         }
         exit;

@@ -6,6 +6,7 @@ use App\Formatters\DateFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cliente\StoreClienteRequest;
 use App\Http\Requests\Cliente\UpdateClienteRequest;
+use App\Http\Requests\Venta\ReporteVentaRequest;
 use App\Models\Cliente;
 use App\Models\DatosGenerales;
 use App\Models\Rol;
@@ -167,7 +168,7 @@ class ClienteController extends Controller
     }
 
 
-    public function getReporteEstadoCuenta(Request $request)
+    public function getReporteEstadoCuenta(ReporteVentaRequest $request)
     {
         $fecha_inicio = new DateFormatter($request->fecha_inicio);
         $fecha_fin = new DateFormatter($request->fecha_fin);
