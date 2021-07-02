@@ -79,4 +79,4 @@ Route::post('print-venta', [App\Http\Controllers\Facturacion\VentaController::cl
 Route::post('print-venta-producto', [App\Http\Controllers\Facturacion\VentaController::class, 'getReporteVentaProducto'])->name('getReporteVentaProducto');
 Route::post('print-venta-servicio', [App\Http\Controllers\Facturacion\VentaController::class, 'getReporteVentaServicio'])->name('getReporteVentaServicio');
 Route::post('print-venta-reserva', [App\Http\Controllers\Facturacion\VentaController::class, 'getReporteVentaReserva'])->name('getReporteVentaReserva');
-Route::post('print-venta-reserva', [App\Http\Controllers\Cliente\ClienteController::class, 'getReporteEstadoCuenta'])->name('getReporteEstadoCuenta');
+Route::post('print-estado-cuenta', [App\Http\Controllers\Cliente\ClienteController::class, 'getReporteEstadoCuenta'])->name('getReporteEstadoCuenta');
