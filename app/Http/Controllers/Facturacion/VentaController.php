@@ -268,7 +268,8 @@ class VentaController extends Controller
     public function getStock(Request $request)
     {
         if (isset($request->campo) && isset($request->valor)) {
-            $val = explode('-', $request->valor)[1];
+            $v = explode('-', $request->valor);
+            $val = count($v) > 1 ? $v[1] : $v[0];
             $valor = $request->campo == 'id' ? $val : '\'' . $val . '\'';
             $stock = DB::select(DB::raw(
                 'select 
@@ -286,7 +287,6 @@ class VentaController extends Controller
                     inner join productos on productos.id = stock.producto_id
                 where productos.' . $request->campo . ' = ' . $valor
             ));
-
             $data['stock'] = $stock;
             echo json_encode($data);
         }
@@ -366,6 +366,16 @@ class VentaController extends Controller
         return view('producto.reporte-producto');
     }
 
+    public function reporteVentaServicio()
+    {
+        return view('servicio.reporte-servicio');
+    }
+
+    public function reporteVentaReserva()
+    {
+        return view('reserva.reporte-reserva');
+    }
+
     public function getReporteVenta(ReporteVentaRequest $request)
     {
         $fecha_inicio = new DateFormatter($request->fecha_inicio);
@@ -420,6 +430,7 @@ class VentaController extends Controller
                 producto_id,
                 descripcion,
                 precio,
+                codigo_barra,
                 sum(cantidad) as cantidad,
                 sum(subtotal) as total
             from ventas_detalles_productos
@@ -429,14 +440,92 @@ class VentaController extends Controller
             group by ventas.fecha::date,
                 producto_id,
                 descripcion,
-                precio
+                precio,
+                codigo_barra
             order by fecha,descripcion'
         ));
         $total_general = 0;
         foreach ($data as $key => $item) {
             $total_general += $item->total;
         }
-        return view('venta.reporte.productos')
+        return view('venta.reporte.producto')
+            ->with('general', $general)
+            ->with('data', $data)
+            ->with('fecha_inicio', $fecha_inicio)
+            ->with('fecha_fin', $fecha_fin)
+            ->with('total_general', $total_general);
+    }
+
+    public function getReporteVentaServicio(ReporteVentaRequest $request)
+    {
+        $fecha_inicio = new DateFormatter($request->fecha_inicio);
+        $fecha_fin = new DateFormatter($request->fecha_fin);
+        $general = DatosGenerales::all()->first();
+        $data = DB::select(DB::raw(
+            'select 
+                ventas.fecha::date,
+                servicios.id as codigo_barra,
+                initcap(servicios.descripcion) as descripcion,
+                precio,
+                sum(cantidad) as cantidad,
+                sum(subtotal) as total
+            from ventas_detalles_reservas
+                inner join ventas on ventas.id = ventas_detalles_reservas.venta_id
+                inner join reservas on reservas.id = ventas_detalles_reservas.reserva_id
+                inner join eventos on eventos.id = reservas.evento_id
+                inner join actividades on actividades.id = eventos.actividad_id
+                inner join servicios on servicios.id = actividades.servicio_id
+            where ventas.fecha::date between \'' . $fecha_inicio->forString() . '\' and \'' . $fecha_fin->forString() . '\'
+            and ventas.estado = \'1\'
+            group by ventas.fecha::date,
+                servicios.id,
+                initcap(servicios.descripcion),
+                precio
+            order by ventas.fecha::date, initcap(servicios.descripcion)'
+        ));
+        $total_general = 0;
+        foreach ($data as $key => $item) {
+            $total_general += $item->total;
+        }
+        return view('venta.reporte.servicio')
+            ->with('general', $general)
+            ->with('data', $data)
+            ->with('fecha_inicio', $fecha_inicio)
+            ->with('fecha_fin', $fecha_fin)
+            ->with('total_general', $total_general);
+    }
+
+    public function getReporteVentaReserva(ReporteVentaRequest $request)
+    {
+        $fecha_inicio = new DateFormatter($request->fecha_inicio);
+        $fecha_fin = new DateFormatter($request->fecha_fin);
+        $general = DatosGenerales::all()->first();
+        $data = DB::select(DB::raw(
+            'select 
+                ventas.fecha::date,
+                codigo_barra,
+                initcap(actividades.nombre) as descripcion,
+                precio,
+                sum(cantidad) as cantidad,
+                sum(subtotal) as total
+            from ventas_detalles_reservas
+                inner join ventas on ventas.id = ventas_detalles_reservas.venta_id
+                inner join reservas on reservas.id = ventas_detalles_reservas.reserva_id
+                inner join eventos on eventos.id = reservas.evento_id
+                inner join actividades on actividades.id = eventos.actividad_id
+            where ventas.fecha::date between \'' . $fecha_inicio->forString() . '\' and \'' . $fecha_fin->forString() . '\'
+            and ventas.estado = \'1\'
+            group by ventas.fecha::date,
+                codigo_barra,
+                initcap(actividades.nombre),
+                precio
+            order by ventas.fecha::date, initcap(actividades.nombre)'
+        ));
+        $total_general = 0;
+        foreach ($data as $key => $item) {
+            $total_general += $item->total;
+        }
+        return view('venta.reporte.reserva')
             ->with('general', $general)
             ->with('data', $data)
             ->with('fecha_inicio', $fecha_inicio)

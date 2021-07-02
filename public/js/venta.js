@@ -161,7 +161,6 @@ $(document).ready(function () {
                     if (response['reservas'].length > 0) {
                         for (var i = 0; i < response['reservas'].length; i++) {
                             var precios = response['reservas'][i].precios;
-
                             var cantidad = Number(response['reservas'][i].cantidad);
                             var codigo = response['reservas'][i].codigo;
                             var descripcion = response['reservas'][i].descripcion;
@@ -238,13 +237,12 @@ $(document).ready(function () {
                         }
 
                     } else {
-                        $('#codigo_barra').val(producto.codigo_barra);
-                        $('#producto_cantidad').val('1');
                         if (campo != 'id') {
                             $('#producto_id').val(producto.producto_id);
                             $('#producto_id').trigger('change');
-
                         }
+                        $('#producto_cantidad').val('1');
+                        $('#codigo_barra').val(producto.codigo_barra);
                     }
                     return producto;
                 } else {

@@ -59,17 +59,21 @@ Route::group(['middleware' => ['auth', 'roles']], function () {
     Route::resource('unidad', UnidadMedidaController::class);
     Route::resource('venta', VentaController::class);
     Route::resource('usuario', UsuarioController::class);
-
-    Route::post('/getEventos', [App\Http\Controllers\Reserva\ReservaController::class, 'getEventos'])->name('getEventos');
-    Route::post('/getCliente', [App\Http\Controllers\Facturacion\VentaController::class, 'getCliente'])->name('getCliente');
-    Route::post('/getStock', [App\Http\Controllers\Facturacion\VentaController::class, 'getStock'])->name('getStock');
-
-
-    Route::get('reporte-venta', [App\Http\Controllers\Facturacion\VentaController::class, 'reporteVenta'])->name('venta.reporte');
-    Route::get('reporte-venta-producto', [App\Http\Controllers\Facturacion\VentaController::class, 'reporteVentaProducto'])->name('venta.producto.reporte');
-
-    Route::get('print-ficha/{id}', [App\Http\Controllers\Ficha\FichaController::class, 'printFicha'])->name('printFicha');
-    Route::get('print-venta/{id}', [App\Http\Controllers\Facturacion\VentaController::class, 'printFactura'])->name('printFactura');
-    Route::post('print-venta', [App\Http\Controllers\Facturacion\VentaController::class, 'getReporteVenta'])->name('getReporteVenta');
-    Route::post('print-venta-producto', [App\Http\Controllers\Facturacion\VentaController::class, 'getReporteVentaProducto'])->name('getReporteVentaProducto');
 });
+
+
+Route::post('/getEventos', [App\Http\Controllers\Reserva\ReservaController::class, 'getEventos'])->name('getEventos');
+Route::post('/getCliente', [App\Http\Controllers\Facturacion\VentaController::class, 'getCliente'])->name('getCliente');
+Route::post('/getStock', [App\Http\Controllers\Facturacion\VentaController::class, 'getStock'])->name('getStock');
+
+Route::get('reporte-venta', [App\Http\Controllers\Facturacion\VentaController::class, 'reporteVenta'])->name('venta.reporte');
+Route::get('reporte-venta-producto', [App\Http\Controllers\Facturacion\VentaController::class, 'reporteVentaProducto'])->name('venta.producto.reporte');
+Route::get('reporte-venta-servicio', [App\Http\Controllers\Facturacion\VentaController::class, 'reporteVentaServicio'])->name('venta.servicio.reporte');
+Route::get('reporte-venta-reserva', [App\Http\Controllers\Facturacion\VentaController::class, 'reporteVentaReserva'])->name('venta.reserva.reporte');
+
+Route::get('print-ficha/{id}', [App\Http\Controllers\Ficha\FichaController::class, 'printFicha'])->name('printFicha');
+Route::get('print-venta/{id}', [App\Http\Controllers\Facturacion\VentaController::class, 'printFactura'])->name('printFactura');
+Route::post('print-venta', [App\Http\Controllers\Facturacion\VentaController::class, 'getReporteVenta'])->name('getReporteVenta');
+Route::post('print-venta-producto', [App\Http\Controllers\Facturacion\VentaController::class, 'getReporteVentaProducto'])->name('getReporteVentaProducto');
+Route::post('print-venta-servicio', [App\Http\Controllers\Facturacion\VentaController::class, 'getReporteVentaServicio'])->name('getReporteVentaServicio');
+Route::post('print-venta-reserva', [App\Http\Controllers\Facturacion\VentaController::class, 'getReporteVentaReserva'])->name('getReporteVentaReserva');
