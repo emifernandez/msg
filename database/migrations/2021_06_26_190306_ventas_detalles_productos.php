@@ -29,7 +29,7 @@ class VentasDetallesProductos extends Migration
                 ->on('ventas');
             $table->foreign('producto_id')
                 ->references('id')
-                ->on('reservas');
+                ->on('productos');
         });
     }
 

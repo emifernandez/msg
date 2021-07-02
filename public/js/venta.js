@@ -243,6 +243,7 @@ $(document).ready(function () {
                         }
                         $('#producto_cantidad').val('1');
                         $('#codigo_barra').val(producto.codigo_barra);
+
                     }
                     return producto;
                 } else {
