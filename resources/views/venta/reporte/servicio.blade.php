@@ -106,15 +106,24 @@ body{
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($data as $item)
-                                    <tr>
-                                        <td class="text-center">{{$item->fecha}}</td>
-                                        <td class="text-center">{{isset($item->codigo_barra) ? $item->codigo_barra : ''}}</td>
-                                        <td>{{$item->descripcion}}</td>
-                                        <td class="text-center">{{number_format($item->precio,'0',',','.')}}</td>
-                                        <td class="text-center">{{number_format($item->cantidad,'0',',','.')}}</td>
-                                        <td class="text-right">{{number_format($item->total,'0',',','.')}}</td>
-                                    </tr>
+                                    @foreach ($data['fechas'] as $f)
+                                        @foreach ($data['ventas'] as $item)
+                                        @if($f->fecha == $item->fecha)
+                                        <tr>
+                                            <td class="text-center">{{$item->fecha}}</td>
+                                            <td class="text-center">{{isset($item->codigo_barra) ? $item->codigo_barra : ''}}</td>
+                                            <td>{{$item->descripcion}}</td>
+                                            <td class="text-center">{{number_format($item->precio,'0',',','.')}}</td>
+                                            <td class="text-center">{{number_format($item->cantidad,'0',',','.')}}</td>
+                                            <td class="text-right">{{number_format($item->total,'0',',','.')}}</td>
+                                        </tr>
+                                        @endif
+                                        @endforeach
+                                        <tr>
+                                            <td colspan="4">
+                                            </td><td class="text-right"><strong>Total</strong></td>
+                                            <td class="text-right"><strong>Gs. {{number_format($f->total,'0',',','.')}}</strong></td>
+                                        </tr>
                                     @endforeach
                                     <tr>
                                         <td colspan="4">
@@ -123,7 +132,7 @@ body{
                                     </tr>
                                     <tr>
                                         <td colspan="4">
-                                        </td><td class="text-right"><strong>Total</strong></td>
+                                        </td><td class="text-right"><strong>Total General</strong></td>
                                         <td class="text-right"><strong>Gs. {{number_format($total_general,'0',',','.')}}</strong></td>
                                     </tr>
                                 </tbody>

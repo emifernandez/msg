@@ -505,7 +505,22 @@ class VentaController extends Controller
         $fecha_inicio = new DateFormatter($request->fecha_inicio);
         $fecha_fin = new DateFormatter($request->fecha_fin);
         $general = DatosGenerales::all()->first();
-        $data = DB::select(DB::raw(
+        $fechas = DB::select(DB::raw(
+            'select 
+                ventas.fecha::date,
+                sum(subtotal) as total
+            from ventas_detalles_reservas
+                inner join ventas on ventas.id = ventas_detalles_reservas.venta_id
+                inner join reservas on reservas.id = ventas_detalles_reservas.reserva_id
+                inner join eventos on eventos.id = reservas.evento_id
+                inner join actividades on actividades.id = eventos.actividad_id
+                inner join servicios on servicios.id = actividades.servicio_id
+            where ventas.fecha::date between \'' . $fecha_inicio->forString() . '\' and \'' . $fecha_fin->forString() . '\'
+            and ventas.estado = \'1\'
+            group by ventas.fecha::date
+            order by ventas.fecha::date'
+        ));
+        $ventas = DB::select(DB::raw(
             'select 
                 ventas.fecha::date,
                 servicios.id as codigo_barra,
@@ -527,8 +542,10 @@ class VentaController extends Controller
                 precio
             order by ventas.fecha::date, initcap(servicios.descripcion)'
         ));
+        $data['fechas'] = $fechas;
+        $data['ventas'] = $ventas;
         $total_general = 0;
-        foreach ($data as $key => $item) {
+        foreach ($data['ventas'] as $key => $item) {
             $total_general += $item->total;
         }
         return view('venta.reporte.servicio')
