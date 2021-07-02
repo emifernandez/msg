@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Cliente;
 
+use App\Formatters\DateFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cliente\StoreClienteRequest;
 use App\Http\Requests\Cliente\UpdateClienteRequest;
 use App\Models\Cliente;
+use App\Models\DatosGenerales;
 use App\Models\Rol;
 use App\Models\User;
+use App\Models\Venta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -150,5 +153,75 @@ class ClienteController extends Controller
         $cliente->delete();
         toast('Cliente eliminado correctamente', 'success');
         return redirect()->route('cliente.index');
+    }
+
+    public function reporteEstadoCuenta()
+    {
+        $estados = Venta::ESTADO;
+        $tipos_comprobantes = Venta::TIPO_COMPROBANTE;
+        $clientes = Cliente::orderBy('nombre', 'asc')->get();
+        return view('cliente.reporte-estado-cuenta')
+            ->with('estados', $estados)
+            ->with('clientes', $clientes)
+            ->with('tipos_comprobantes', $tipos_comprobantes);
+    }
+
+
+    public function getReporteEstadoCuenta(Request $request)
+    {
+        $fecha_inicio = new DateFormatter($request->fecha_inicio);
+        $fecha_fin = new DateFormatter($request->fecha_fin);
+        $general = DatosGenerales::all()->first();
+        $estados = Venta::ESTADO;
+        $tipos = Venta::TIPO_COMPROBANTE;
+        $estado = $request->estado == '0' ? 'Todos' : $estados[$request->estado];
+        $tipo_comprobante = $request->tipo_comprobante == '0' ? 'Todos' : $tipos[$request->tipo_comprobante];
+        $data = DB::select(DB::raw(
+            'select ventas.id,
+                fecha,
+                prefijo_factura,
+                total,
+                tipo_comprobante,
+                ventas.estado,
+                forma_pago,
+                medio_pago,
+                clientes.razon_social,
+                clientes.ruc,
+                clientes.numero_documento
+            from ventas
+                inner join clientes on ventas.cliente_id = clientes.id
+            where (cliente_id = ' . $request->cliente_id . ' or 0 = ' . $request->cliente_id . ') 
+            and fecha::date between \'' . $fecha_inicio->forString() . '\' and \'' . $fecha_fin->forString() . '\'
+            and (ventas.estado = \'' . $request->estado . '\' or \'0\' = \'' . $request->estado . '\')
+            and (tipo_comprobante = \'' . $request->tipo_comprobante . '\' or \'0\' = \'' . $request->tipo_comprobante . '\')'
+        ));
+        $reservas = DB::select(DB::raw(
+            'select
+                eventos.fecha,
+                initcap(actividades.nombre) as descripcion,
+                to_char(actividades.hora_inicio, \'HH:MM\') as hora_inicio,
+                to_char(actividades.hora_fin, \'HH:MM\') as hora_fin
+            from reservas
+                inner join eventos on eventos.id = reservas.evento_id
+                inner join actividades on actividades.id = eventos.actividad_id
+            where cliente_id = ' . $request->cliente_id . '
+            and reservas.estado = \'1\'
+            order by eventos.fecha, actividades.hora_inicio'
+        ));
+        $total_general = 0;
+        foreach ($data as $key => $item) {
+            $total_general += $item->total;
+        }
+        return view('cliente.reporte.estadocuenta')
+            ->with('general', $general)
+            ->with('data', $data)
+            ->with('estados', $estados)
+            ->with('tipos', $tipos)
+            ->with('fecha_inicio', $fecha_inicio)
+            ->with('fecha_fin', $fecha_fin)
+            ->with('estado', $estado)
+            ->with('tipo_comprobante', $tipo_comprobante)
+            ->with('total_general', $total_general)
+            ->with('reservas', $reservas);
     }
 }

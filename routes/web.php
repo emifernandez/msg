@@ -70,6 +70,7 @@ Route::get('reporte-venta', [App\Http\Controllers\Facturacion\VentaController::c
 Route::get('reporte-venta-producto', [App\Http\Controllers\Facturacion\VentaController::class, 'reporteVentaProducto'])->name('venta.producto.reporte');
 Route::get('reporte-venta-servicio', [App\Http\Controllers\Facturacion\VentaController::class, 'reporteVentaServicio'])->name('venta.servicio.reporte');
 Route::get('reporte-venta-reserva', [App\Http\Controllers\Facturacion\VentaController::class, 'reporteVentaReserva'])->name('venta.reserva.reporte');
+Route::get('reporte-estado-cuenta', [App\Http\Controllers\Cliente\ClienteController::class, 'reporteEstadoCuenta'])->name('estado.cuenta');
 
 Route::get('print-ficha/{id}', [App\Http\Controllers\Ficha\FichaController::class, 'printFicha'])->name('printFicha');
 Route::get('print-venta/{id}', [App\Http\Controllers\Facturacion\VentaController::class, 'printFactura'])->name('printFactura');
@@ -77,3 +78,4 @@ Route::post('print-venta', [App\Http\Controllers\Facturacion\VentaController::cl
 Route::post('print-venta-producto', [App\Http\Controllers\Facturacion\VentaController::class, 'getReporteVentaProducto'])->name('getReporteVentaProducto');
 Route::post('print-venta-servicio', [App\Http\Controllers\Facturacion\VentaController::class, 'getReporteVentaServicio'])->name('getReporteVentaServicio');
 Route::post('print-venta-reserva', [App\Http\Controllers\Facturacion\VentaController::class, 'getReporteVentaReserva'])->name('getReporteVentaReserva');
+Route::post('print-venta-reserva', [App\Http\Controllers\Cliente\ClienteController::class, 'getReporteEstadoCuenta'])->name('getReporteEstadoCuenta');

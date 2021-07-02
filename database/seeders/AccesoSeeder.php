@@ -205,6 +205,14 @@ class AccesoSeeder extends Seeder
         $acceso->icono = 'fas fa-fw fa-print';
         $acceso->nivel = 2;
         $acceso->save();
+        $acceso = new Acceso();
+        $acceso->nombre = 'estado-cuenta-reporte';
+        $acceso->descripcion = 'Estado de Cuenta Cliente';
+        $acceso->modulo = $menu->id;
+        $acceso->ruta = 'estado.cuenta';
+        $acceso->icono = 'fas fa-fw fa-print';
+        $acceso->nivel = 2;
+        $acceso->save();
 
         /*******************************************************/
         $menu = new Acceso();
